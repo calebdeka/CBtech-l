@@ -4,6 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CB@Techno - Réparation Mobile, Studio & Import Chine</title>
+    <link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#0a192f">
+
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/CBtech-l/sw.js')
+        .then(reg => console.log('App CBtech prête !'))
+        .catch(err => console.log('Erreur', err));
+    });
+  }
+</script>
+    
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
