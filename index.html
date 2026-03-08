@@ -408,7 +408,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: url('data:image/svg+xml,<svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><g fill="%239C92AC" fill-opacity="0.05"><path d="M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z"/></g></g></svg>');
+            background: url('data:image/svg+xml,<svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><g fill="%239C92AC" fill-opacity="0.05"><path d="M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z"/></g></svg>');
             opacity: 0.1;
         }
 
@@ -1749,11 +1749,34 @@
     </div>
 
     <script>
-        // Données des galeries avec images Unsplash et Pexels (libres de droits)
+        // SCRIPT SOURCING PHOTO (NOUVEAUTÉ)
+        function sendSourcingWhatsApp() {
+            const productName = document.getElementById('sourcingName').value;
+            const quantity = document.getElementById('sourcingQty').value || "Non précisée";
+            const budget = document.getElementById('sourcingBudget').value || "À discuter";
+
+            if (!productName) {
+                alert("Veuillez entrer le nom du produit que vous cherchez.");
+                return;
+            }
+
+            const phoneNumber = "22896080212";
+            const message = `*DEMANDE DE SOURCING PHOTO*\n` +
+                          `------------------------------\n` +
+                          `🔎 *Produit :* ${productName}\n` +
+                          `🔢 *Quantité :* ${quantity}\n` +
+                          `💰 *Budget :* ${budget}\n` +
+                          `------------------------------\n` +
+                          `Bonjour CB@Techno, merci de m'envoyer les photos des modèles disponibles pour cet article.`;
+
+            window.open(`https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`, '_blank');
+        }
+
+        // --- RESTANT DU SCRIPT ORIGINAL (INTACT) ---
         const galleries = {
             tech: [
-                { type: 'image', src: 'https://images.unsplash.com/photo-1591799264318-7e6ef8ddb7ea?w=800', title: 'Réparation Smartphone', desc: 'Service professionnel de réparation' },
-                { type: 'image', src: 'https://images.unsplash.com/photo-1588515603068-48e855d27f70?w=800', title: 'Diagnostic Électronique', desc: 'Analyse complète de vos appareils' },
+                { type: 'image', src: '/mnt/kimi/upload/1001852100.png', title: 'CB@Techno - Diagnostic & Réparation', desc: 'Service à domicile - Installation & Vente d\'accessoires électroniques' },
+                { type: 'image', src: 'https://images.unsplash.com/photo-1591799264318-7e6ef8ddb7ea?w=800', title: 'Remplacement Écran iPhone', desc: 'Réparation professionnelle' },
                 { type: 'video', src: 'https://assets.mixkit.co/videos/preview/mixkit-hands-of-a-man-typing-on-a-cell-phone-4812-large.mp4', poster: 'https://images.unsplash.com/photo-1588515603068-48e855d27f70?w=800', title: 'Diagnostic Complet', desc: 'Processus de diagnostic' },
                 { type: 'image', src: 'https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=800', title: 'Changement Batterie', desc: 'Batterie originale' },
                 { type: 'image', src: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800', title: 'Installation Parabolique', desc: 'Parabole HD' }
@@ -1765,11 +1788,170 @@
                 { type: 'image', src: 'https://images.unsplash.com/photo-1519508234439-4f23643125c1?w=800', title: 'Mixage', desc: 'Post-production audio' }
             ],
             import: [
-                { type: 'image', src: 'https://images.pexels.com/photos/3394650/pexels-photo-3394650.jpeg?auto=compress&cs=tinysrgb&w=800', title: 'Kit Microphone Studio Pro', desc: 'Micro à condensateur + carte son + accessoires' },
-                { type: 'image', src: 'https://images.pexels.com/photos/3379942/pexels-photo-3379942.jpeg?auto=compress&cs=tinysrgb&w=800', title: 'Kit Vlogging Complet', desc: 'Trépied + Micro sans fil + LED + Télécommande' },
-                { type: 'image', src: 'https://images.pexels.com/photos/404280/pexels-photo-404280.jpeg?auto=compress&cs=tinysrgb&w=800', title: 'Power Bank 50000mAh', desc: 'Chargeur portable haute capacité' },
-                { type: 'image', src: 'https://images.pexels.com/photos/1476321/pexels-photo-1476321.jpeg?auto=compress&cs=tinysrgb&w=800', title: 'Drone 4K Pliable', desc: 'Caméra HD + Télécommande + 2 batteries' },
-                { type: 'image', src: 'https://images.pexels.com/photos/209695/pexels-photo-209695.jpeg?auto=compress&cs=tinysrgb&w=800', title: 'Blender Pro 4500W', desc: 'Mixeur professionnel avec accessoires' },
-                { type: 'image', src: 'https://images.pexels.com/photos/2724748/pexels-photo-2724748.jpeg?auto=compress&cs=tinysrgb&w=800', title: 'Four Électrique 3-en-1', desc: 'Four + Cafetière + Plaque chauffante' },
-                { type: 'image', src: 'https://images.pexels.com/photos/3817500/pexels-photo-3817500.jpeg?auto=compress&cs=tinysrgb&w=800', title: 'Enceinte Bluetooth Portable', desc: 'Bass puissantes + Étanche' },
-                { type: 'image', src: 'https://images.pexels.com/photos/437037/pexels-photo-437037.jpeg?auto=compress&cs=tinysrgb&w=800', title: 'Montre
+                { type: 'image', src: '/mnt/kimi/upload/1001958106.jpg', title: 'Kit Microphone Studio Pro', desc: 'Micro à condensateur + carte son + accessoires - Commande disponible' },
+                { type: 'image', src: '/mnt/kimi/upload/1001958062.jpg', title: 'Kit Vlogging Complet', desc: 'Trépied + Micro sans fil + LED + Télécommande - Pour créateurs de contenu' },
+                { type: 'image', src: '/mnt/kimi/upload/1001958029.jpg', title: 'Masseur de Pieds EMS', desc: 'Stimulation électrique musculaire - Relaxation et circulation' },
+                { type: 'image', src: '/mnt/kimi/upload/1001957584.jpg', title: 'Power Bank 50000mAh', desc: 'Chargeur portable haute capacité avec lampe LED - Charge rapide' },
+                { type: 'image', src: '/mnt/kimi/upload/1001956807.png', title: 'Réfrigérateur Compact', desc: 'Double porte congélateur - Idéal pour studio ou chambre' },
+                { type: 'image', src: '/mnt/kimi/upload/1001957684.jpg', title: 'Drone 4K Pliable', desc: 'Caméra HD + Télécommande + 2 batteries - Livraison Lomé' },
+                { type: 'image', src: '/mnt/kimi/upload/1001958176.jpg', title: 'Micros Sans Fil Cravate', desc: '2 émetteurs + boîtier de charge - Pour interviews et vidéos' },
+                { type: 'image', src: '/mnt/kimi/upload/1001958211.jpg', title: 'Blender Silver Crest 4500W', desc: 'Mixeur professionnel avec accessoires - Smoothies et poudre' },
+                { type: 'image', src: '/mnt/kimi/upload/1001958216.jpg', title: 'Ensemble Pyjama Femme', desc: 'Débardeur + pantalon motif cœur - Confortable et stylé' },
+                { type: 'image', src: '/mnt/kimi/upload/1001958214.jpg', title: 'Four Électrique 3-en-1', desc: 'Four + Cafetière + Plaque chauffante - Petit déjeuner complet' },
+                { type: 'image', src: '/mnt/kimi/upload/1001958217.jpg', title: 'Bouilloire Pliable Voyage', desc: 'Silicone alimentaire - Idéal pour voyages et camping' },
+                { type: 'image', src: '/mnt/kimi/upload/1001958234.jpg', title: 'Hachoir Légumes 12-en-1', desc: 'Coupe-légumes multifonction avec récipient - Cuisine facile' },
+                { type: 'image', src: '/mnt/kimi/upload/1001950589.jpg', title: 'Ruban LED RGB 5M', desc: 'Bande lumineuse multicolore avec télécommande - Décoration maison' },
+                { type: 'image', src: '/mnt/kimi/upload/1001958243.jpg', title: 'Baskets Blanches Unisexe', desc: 'Chaussures casual style classique - Toutes tailles disponibles' },
+                { type: 'image', src: '/mnt/kimi/upload/1001958247.jpg', title: 'Mini Four Silver Crest 13L', desc: 'Four toaster compact - Cuisson rapide et économique' },
+                { type: 'image', src: '/mnt/kimi/upload/1001958248.jpg', title: 'Chaussures Habillées Homme', desc: 'Cuir verni élégant bordeaux - Cérémonies et bureau' },
+                { type: 'image', src: '/mnt/kimi/upload/1001958251.jpg', title: 'Enceinte Bluetooth Portable', desc: 'Bass puissantes + Étanche - Extérieur et fêtes' },
+                { type: 'image', src: '/mnt/kimi/upload/1001946885.jpg', title: 'Montre Connectée Luxe', desc: 'Smartwatch dorée avec bracelet maille - Notifications et santé' },
+                { type: 'image', src: '/mnt/kimi/upload/1001958260.jpg', title: 'Plaque Électrique 1000W', desc: 'Réchaud portable RAF - Cuisson rapide partout' },
+                { type: 'image', src: '/mnt/kimi/upload/1001946875.jpg', title: 'Ventilateur Brumisateur', desc: 'Refroidisseur d\'air + Humidificateur + LED - Chaleur estivale' }
+            ],
+            events: [
+                { type: 'image', src: 'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=800', title: 'Événement Tech', desc: 'Démonstration réparation' },
+                { type: 'image', src: 'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=800', title: 'Concert Partenaire', desc: 'Sonorisation par CB@Techno' },
+                { type: 'video', src: 'https://assets.mixkit.co/videos/preview/mixkit-crowd-cheering-at-a-concert-1762-large.mp4', poster: 'https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=800', title: 'Soirée Live', desc: 'Enregistrement live' }
+            ],
+            divers: [
+                { type: 'image', src: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800', title: 'Équipe CB@Techno', desc: 'Notre équipe au travail' },
+                { type: 'image', src: 'https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=800', title: 'Formation', desc: 'Apprentissage réparation' }
+            ]
+        };
+
+        let currentGallery = 'tech';
+        let currentIndex = 0;
+
+        function init() {
+            renderGallery('tech');
+            renderGallery('studio');
+            renderGallery('import');
+            renderGallery('events');
+            renderGallery('divers');
+        }
+
+        function renderGallery(galleryName) {
+            const grid = document.getElementById(`grid-${galleryName}`);
+            if (!grid) return;
+            grid.innerHTML = '';
+            const items = galleries[galleryName] || [];
+            items.forEach((item, index) => {
+                const div = document.createElement('div');
+                div.className = 'gallery-item fade-in visible';
+                div.onclick = () => openLightbox(galleryName, index);
+                if (item.type === 'video') {
+                    div.innerHTML = `<span class="media-badge">Vidéo</span><video poster="${item.poster}" muted loop playsinline><source src="${item.src}" type="video/mp4"></video><div class="play-icon"><i class="fas fa-play"></i></div><div class="gallery-overlay"><h3>${item.title}</h3><p>${item.desc}</p></div>`;
+                    div.addEventListener('mouseenter', () => { const v = div.querySelector('video'); if (v) v.play(); });
+                    div.addEventListener('mouseleave', () => { const v = div.querySelector('video'); if (v) v.pause(); });
+                } else {
+                    div.innerHTML = `<span class="media-badge">Photo</span><img src="${item.src}" alt="${item.title}" loading="lazy"><div class="gallery-overlay"><h3>${item.title}</h3><p>${item.desc}</p></div>`;
+                }
+                grid.appendChild(div);
+            });
+        }
+
+        function switchGallery(galleryName) {
+            currentGallery = galleryName;
+            document.querySelectorAll('.gallery-tab').forEach((tab, index) => {
+                const tabs = ['tech', 'studio', 'import', 'events', 'divers'];
+                tab.classList.toggle('active', tabs[index] === galleryName);
+            });
+            document.querySelectorAll('.gallery-section').forEach(section => section.classList.remove('active'));
+            document.getElementById(`gallery-${galleryName}`).classList.add('active');
+            document.getElementById('galerie').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function openLightbox(galleryName, index) {
+            currentGallery = galleryName;
+            currentIndex = index;
+            updateLightbox();
+            document.getElementById('lightbox').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function updateLightbox() {
+            const items = galleries[currentGallery];
+            const item = items[currentIndex];
+            const content = document.getElementById('lightbox-content');
+            const counter = document.getElementById('lightbox-counter');
+            content.innerHTML = '';
+            if (item.type === 'video') {
+                const v = document.createElement('video'); v.src = item.src; v.controls = v.autoplay = true; v.style.maxHeight = '80vh'; content.appendChild(v);
+            } else {
+                const img = document.createElement('img'); img.src = item.src; img.alt = item.title; content.appendChild(img);
+            }
+            counter.textContent = `${currentIndex + 1} / ${items.length}`;
+        }
+
+        function changeImage(direction) {
+            const items = galleries[currentGallery];
+            currentIndex += direction;
+            if (currentIndex < 0) currentIndex = items.length - 1;
+            if (currentIndex >= items.length) currentIndex = 0;
+            updateLightbox();
+        }
+
+        function closeLightbox(event) {
+            if (event.target.id === 'lightbox' || event.target.closest('.lightbox-close')) {
+                document.getElementById('lightbox').classList.remove('active');
+                document.body.style.overflow = 'auto';
+                document.querySelectorAll('#lightbox video').forEach(v => v.pause());
+            }
+        }
+
+        function openModal() { document.getElementById('addModal').classList.add('active'); document.getElementById('adminBadge').classList.add('active'); }
+        function closeModal() { document.getElementById('addModal').classList.remove('active'); }
+        function toggleMediaInput() { const t = document.getElementById('mediaType').value; document.getElementById('posterInput').style.display = t === 'video' ? 'block' : 'none'; }
+
+        function handleAddContent(e) {
+            e.preventDefault();
+            const g = document.getElementById('galleryTarget').value;
+            const newItem = {
+                type: document.getElementById('mediaType').value === 'local' ? 'image' : document.getElementById('mediaType').value,
+                src: document.getElementById('mediaUrl').value,
+                title: document.getElementById('mediaTitle').value,
+                desc: document.getElementById('mediaDesc').value
+            };
+            if (newItem.type === 'video' && document.getElementById('posterUrl').value) newItem.poster = document.getElementById('posterUrl').value;
+            galleries[g].push(newItem);
+            renderGallery(g);
+            switchGallery(g);
+            closeModal(); e.target.reset();
+            alert(`✅ "${newItem.title}" ajouté !`);
+        }
+
+        function calculateImport() {
+            const price = parseFloat(document.getElementById('productPrice').value) || 0;
+            const weight = parseFloat(document.getElementById('productWeight').value) || 0;
+            const mode = document.getElementById('transportMode').value;
+            const commission = price * 0.15;
+            const transport = weight * (mode === 'sea' ? 8 : 25);
+            const douane = price * 0.20;
+            const totalFCFA = (price + commission + transport + douane) * 605;
+            document.getElementById('calcResult').innerHTML = `Total estimé: ${totalFCFA.toLocaleString()} FCFA`;
+        }
+
+        function handleSubmit(e) {
+            e.preventDefault();
+            const btn = e.target.querySelector('button[type="submit"]');
+            btn.innerHTML = 'Envoi...';
+            setTimeout(() => {
+                btn.innerHTML = 'Demande envoyée !';
+                e.target.reset();
+                setTimeout(() => btn.innerHTML = 'Demander un Devis Gratuit', 3000);
+            }, 1500);
+        }
+
+        function toggleMenu() { document.getElementById('navLinks').classList.toggle('active'); }
+
+        const obs = new IntersectionObserver((es) => {
+            es.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
+
+        init();
+    </script>
+</body>
+</html>
+
