@@ -81,6 +81,13 @@
         .admin-badge.active { display: block; }
         footer { background: var(--dark); padding: 3rem 5%; text-align: center; }
     </style>
+<link rel="manifest" href="manifest.json">
+<script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('service-worker.js');
+  }
+</script>
+
 </head>
 <body>
 
