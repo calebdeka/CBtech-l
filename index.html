@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CB@Techno - Boutique Officielle</title>
+    <title>CB@Techno - Boutique & Filtres</title>
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
         import { getFirestore, collection, addDoc, query, onSnapshot, orderBy } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
@@ -22,18 +22,17 @@
         const db = getFirestore(app);
         const storage = getStorage(app);
 
-        // --- FONCTION DE PUBLICATION ---
+        // --- PUBLICATION AVEC CATÉGORIE ---
         window.publierArticle = async () => {
-            const pass = prompt("Entrez le code propriétaire :");
-            if (pass !== "Caleb.1997") return alert("Accès refusé !");
+            const pass = prompt("Code propriétaire :");
+            if (pass !== "Caleb.1997") return alert("Accès refusé");
 
             const file = document.getElementById('file').files[0];
             const nom = document.getElementById('nom').value;
-            const desc = document.getElementById('desc').value;
-            const prixN = document.getElementById('prixN').value;
+            const cate = document.getElementById('cate').value;
             const prixR = document.getElementById('prixR').value;
 
-            if(!file || !nom || !prixR) return alert("Veuillez remplir tous les champs obligatoires.");
+            if(!file || !nom || !prixR) return alert("Remplis les champs obligatoires !");
 
             try {
                 const storageRef = ref(storage, 'articles/' + Date.now() + "_" + file.name);
@@ -41,104 +40,97 @@
                 const url = await getDownloadURL(storageRef);
 
                 await addDoc(collection(db, "articles"), {
-                    nom, desc, prixN, prixR, url, date: Date.now()
+                    nom, cate, url, 
+                    desc: document.getElementById('desc').value,
+                    prixN: document.getElementById('prixN').value,
+                    prixR: prixR,
+                    date: Date.now()
                 });
-                alert("Article ajouté avec succès !");
+                alert("Publié !");
                 document.getElementById('admin-panel').style.display = 'none';
-            } catch (e) {
-                alert("Erreur de connexion. Assurez-vous d'avoir activé 'STORAGE' en mode test sur Firebase.");
-            }
+            } catch (e) { alert("Erreur Firebase : Vérifie l'activation du Storage."); }
         };
 
-        // --- CHARGEMENT DES ARTICLES DYNAMIQUES ---
+        // --- FILTRAGE DES ARTICLES ---
+        window.filtrer = (categorie) => {
+            const cards = document.querySelectorAll('.card-dynamique');
+            cards.forEach(card => {
+                if(categorie === 'Tous' || card.getAttribute('data-cate') === categorie) {
+                    card.style.display = 'block';
+                } else { card.style.display = 'none'; }
+            });
+        };
+
         onSnapshot(query(collection(db, "articles"), orderBy("date", "desc")), (snap) => {
             const container = document.getElementById('nouveautes');
-            container.innerHTML = ""; 
+            container.innerHTML = "";
             snap.forEach(doc => {
                 const d = doc.data();
                 container.innerHTML += `
-                    <div class="card">
-                        <img src="${d.url}" alt="${d.nom}">
+                    <div class="card card-dynamique" data-cate="${d.cate}">
+                        <img src="${d.url}">
                         <div class="info">
+                            <span class="badge">${d.cate}</span>
                             <h3>${d.nom}</h3>
-                            <p class="desc">${d.desc}</p>
                             <p class="prix"><del>${d.prixN} CFA</del> <span>${d.prixR} CFA</span></p>
-                            <a href="https://wa.me/22870062639?text=Salut Caleb, je suis intéressé par : ${d.nom}" class="btn-wa">Commander sur WhatsApp</a>
+                            <a href="https://wa.me/22870062639?text=Salut Caleb, je veux : ${d.nom}" class="btn-wa">Commander</a>
                         </div>
                     </div>`;
             });
         });
     </script>
     <style>
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; background: #f0f2f5; color: #333; }
-        header { background: #000; color: #fff; padding: 20px; text-align: center; position: sticky; top: 0; z-index: 1000; }
-        .admin-trigger { background: none; border: none; color: #555; font-size: 11px; cursor: pointer; margin-top: 5px; }
+        body { font-family: sans-serif; margin: 0; background: #f0f2f5; }
+        header { background: #000; color: #fff; padding: 20px; text-align: center; }
+        .nav-filtres { display: flex; overflow-x: auto; padding: 10px; background: #fff; gap: 10px; border-bottom: 1px solid #ddd; }
+        .btn-filtre { padding: 8px 15px; border-radius: 20px; border: 1px solid #000; background: none; white-space: nowrap; cursor: pointer; }
+        .btn-filtre:hover { background: #000; color: #fff; }
         
-        #admin-panel { display: none; background: #fff; padding: 20px; border-bottom: 3px solid #007bff; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
-        #admin-panel input, #admin-panel textarea { width: 100%; padding: 10px; margin: 10px 0; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box; }
-        .btn-publier { background: #007bff; color: white; border: none; padding: 15px; width: 100%; border-radius: 5px; font-weight: bold; cursor: pointer; }
-
-        .container { max-width: 800px; margin: 20px auto; padding: 0 10px; }
-        .section-title { border-left: 5px solid #000; padding-left: 10px; margin: 30px 0 15px; font-weight: bold; text-transform: uppercase; }
+        #admin-panel { display: none; background: #fff; padding: 15px; border-bottom: 3px solid #007bff; }
+        input, select, textarea { width: 100%; padding: 10px; margin: 5px 0; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box; }
         
-        .card { background: #fff; border-radius: 12px; overflow: hidden; margin-bottom: 20px; box-shadow: 0 2px 12px rgba(0,0,0,0.08); transition: 0.3s; }
-        .card img { width: 100%; height: auto; display: block; }
+        .container { padding: 10px; max-width: 600px; margin: auto; }
+        .card { background: #fff; border-radius: 10px; overflow: hidden; margin-bottom: 20px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .card img { width: 100%; }
         .card .info { padding: 15px; }
-        .card h3 { margin: 0 0 10px; color: #111; }
-        .card .desc { color: #666; font-size: 14px; line-height: 1.4; }
-        .card .prix { font-size: 18px; font-weight: bold; }
-        .card .prix del { color: #999; font-size: 14px; margin-right: 10px; }
-        .card .prix span { color: #e41e31; }
-        
-        .btn-wa { display: block; background: #25D366; color: white; text-align: center; padding: 12px; text-decoration: none; border-radius: 8px; margin-top: 15px; font-weight: bold; }
+        .badge { background: #007bff; color: white; padding: 3px 8px; border-radius: 5px; font-size: 10px; text-transform: uppercase; }
+        .prix span { color: #e41e31; font-weight: bold; font-size: 1.2em; }
+        .btn-wa { display: block; background: #25D366; color: white; text-align: center; padding: 12px; text-decoration: none; border-radius: 5px; font-weight: bold; }
     </style>
 </head>
 <body>
 
     <header>
-        <h1 style="margin:0;">CB@Techno</h1>
-        <p style="margin:5px 0 0; font-size: 14px;">Réparation & Accessoires - Lomé, Togo</p>
-        <button class="admin-trigger" onclick="document.getElementById('admin-panel').style.display='block'">Espace Propriétaire</button>
+        <h1>CB@Techno</h1>
+        <button onclick="document.getElementById('admin-panel').style.display='block'" style="background:none; border:none; color: #666; font-size:10px;">Admin</button>
     </header>
 
+    <div class="nav-filtres">
+        <button class="btn-filtre" onclick="filtrer('Tous')">Tous</button>
+        <button class="btn-filtre" onclick="filtrer('Écrans')">Écrans</button>
+        <button class="btn-filtre" onclick="filtrer('Batteries')">Batteries</button>
+        <button class="btn-filtre" onclick="filtrer('Audio')">Audio</button>
+        <button class="btn-filtre" onclick="filtrer('Réparation')">Réparations</button>
+    </div>
+
     <div id="admin-panel">
-        <h3>📢 Publier un nouvel article</h3>
         <input type="file" id="file" accept="image/*">
-        <input type="text" id="nom" placeholder="Nom de l'article (ex: Écouteurs Bluetooth)">
-        <textarea id="desc" rows="3" placeholder="Caractéristiques (ex: Autonomie 4h, Basses puissantes)"></textarea>
-        <div style="display: flex; gap: 10px;">
-            <input type="number" id="prixN" placeholder="Prix Normal (CFA)">
-            <input type="number" id="prixR" placeholder="Prix Promo (CFA)">
-        </div>
-        <button class="btn-publier" onclick="publierArticle()">METTRE EN LIGNE MAINTENANT</button>
-        <button onclick="document.getElementById('admin-panel').style.display='none'" style="background:none; border:none; color:red; width:100%; margin-top:10px; cursor:pointer;">Annuler</button>
+        <input type="text" id="nom" placeholder="Nom du produit">
+        <select id="cate">
+            <option value="Écrans">Écrans</option>
+            <option value="Batteries">Batteries</option>
+            <option value="Audio">Audio</option>
+            <option value="Réparation">Service Réparation</option>
+        </select>
+        <textarea id="desc" placeholder="Caractéristiques"></textarea>
+        <input type="number" id="prixN" placeholder="Prix Normal">
+        <input type="number" id="prixR" placeholder="Prix Promo">
+        <button onclick="publierArticle()" style="width:100%; padding:15px; background:#007bff; color:white; border:none; border-radius:5px;">PUBLIER L'ARTICLE</button>
+        <button onclick="document.getElementById('admin-panel').style.display='none'" style="width:100%; background:none; border:none; color:red; margin-top:10px;">Fermer</button>
     </div>
 
-    <div class="container">
-        <div class="section-title">Nouveautés</div>
-        <div id="nouveautes">
-            </div>
-
-        <div class="section-title">Nos Services & Stock</div>
-        <div id="anciens">
-            <div class="card">
-                <div class="info">
-                    <h3>🛠️ Réparation Smartphone & Électronique</h3>
-                    <p class="desc">Micro-soudure, changement d'écran, diagnostic de carte mère (PMIC, UFS). Travail professionnel et garanti.</p>
-                    <a href="https://wa.me/22870062639?text=Salut Caleb, j'ai un problème avec mon téléphone" class="btn-wa">Demander un devis</a>
-                </div>
-            </div>
-
-            <div class="card">
-                <div class="info">
-                    <h3>🎧 Accessoires disponibles</h3>
-                    <p class="desc">Écouteurs, chargeurs rapides, câbles USB et vitres de protection pour tous modèles.</p>
-                    <p class="prix">À partir de <span>1 000 CFA</span></p>
-                    <a href="https://wa.me/22870062639?text=Salut Caleb, quels accessoires as-tu en stock ?" class="btn-wa">Voir le stock</a>
-                </div>
-            </div>
+    <div class="container" id="nouveautes">
         </div>
-    </div>
 
 </body>
 </html>
