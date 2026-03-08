@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CB@Techno - Boutique & Filtres</title>
+    <title>CB@Techno | Petites Annonces & Réparations</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
         import { getFirestore, collection, addDoc, query, onSnapshot, orderBy } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
@@ -22,115 +23,150 @@
         const db = getFirestore(app);
         const storage = getStorage(app);
 
-        // --- PUBLICATION AVEC CATÉGORIE ---
+        // --- ADMINISTRATION ---
         window.publierArticle = async () => {
-            const pass = prompt("Code propriétaire :");
-            if (pass !== "Caleb.1997") return alert("Accès refusé");
+            const pass = prompt("Accès Propriétaire (Caleb) :");
+            if (pass !== "Caleb.1997") return alert("Accès non autorisé.");
 
             const file = document.getElementById('file').files[0];
             const nom = document.getElementById('nom').value;
             const cate = document.getElementById('cate').value;
-            const prixR = document.getElementById('prixR').value;
+            const prix = document.getElementById('prix').value;
+            const lieu = document.getElementById('lieu').value;
 
-            if(!file || !nom || !prixR) return alert("Remplis les champs obligatoires !");
+            if(!file || !nom || !prix) return alert("Veuillez remplir les informations essentielles.");
 
             try {
-                const storageRef = ref(storage, 'articles/' + Date.now() + "_" + file.name);
+                const storageRef = ref(storage, 'offres/' + Date.now() + "_" + file.name);
                 await uploadBytes(storageRef, file);
                 const url = await getDownloadURL(storageRef);
 
-                await addDoc(collection(db, "articles"), {
-                    nom, cate, url, 
-                    desc: document.getElementById('desc').value,
-                    prixN: document.getElementById('prixN').value,
-                    prixR: prixR,
+                await addDoc(collection(db, "annonces"), {
+                    nom, cate, url, prix, lieu,
                     date: Date.now()
                 });
-                alert("Publié !");
-                document.getElementById('admin-panel').style.display = 'none';
-            } catch (e) { alert("Erreur Firebase : Vérifie l'activation du Storage."); }
+                alert("Annonce publiée sur le réseau !");
+                location.reload();
+            } catch (e) { alert("Erreur : Vérifiez que 'Storage' est bien actif sur Firebase."); }
         };
 
-        // --- FILTRAGE DES ARTICLES ---
-        window.filtrer = (categorie) => {
-            const cards = document.querySelectorAll('.card-dynamique');
-            cards.forEach(card => {
-                if(categorie === 'Tous' || card.getAttribute('data-cate') === categorie) {
-                    card.style.display = 'block';
-                } else { card.style.display = 'none'; }
-            });
-        };
-
-        onSnapshot(query(collection(db, "articles"), orderBy("date", "desc")), (snap) => {
-            const container = document.getElementById('nouveautes');
-            container.innerHTML = "";
+        // --- AFFICHAGE STYLE COINAFRIQUE ---
+        onSnapshot(query(collection(db, "annonces"), orderBy("date", "desc")), (snap) => {
+            const grid = document.getElementById('feed');
+            grid.innerHTML = "";
             snap.forEach(doc => {
                 const d = doc.data();
-                container.innerHTML += `
-                    <div class="card card-dynamique" data-cate="${d.cate}">
-                        <img src="${d.url}">
-                        <div class="info">
-                            <span class="badge">${d.cate}</span>
-                            <h3>${d.nom}</h3>
-                            <p class="prix"><del>${d.prixN} CFA</del> <span>${d.prixR} CFA</span></p>
-                            <a href="https://wa.me/22870062639?text=Salut Caleb, je veux : ${d.nom}" class="btn-wa">Commander</a>
+                grid.innerHTML += `
+                    <div class="ad-card" onclick="window.location.href='https://wa.me/22870062639?text=Intéressé par : ${d.nom}'">
+                        <div class="ad-img" style="background-image: url('${d.url}')">
+                            <span class="ad-cate">${d.cate}</span>
+                        </div>
+                        <div class="ad-info">
+                            <h3 class="ad-price">${parseInt(d.prix).toLocaleString()} CFA</h3>
+                            <p class="ad-title">${d.nom}</p>
+                            <p class="ad-loc"><i class="fa-solid fa-location-dot"></i> ${d.lieu}</p>
                         </div>
                     </div>`;
             });
         });
     </script>
     <style>
-        body { font-family: sans-serif; margin: 0; background: #f0f2f5; }
-        header { background: #000; color: #fff; padding: 20px; text-align: center; }
-        .nav-filtres { display: flex; overflow-x: auto; padding: 10px; background: #fff; gap: 10px; border-bottom: 1px solid #ddd; }
-        .btn-filtre { padding: 8px 15px; border-radius: 20px; border: 1px solid #000; background: none; white-space: nowrap; cursor: pointer; }
-        .btn-filtre:hover { background: #000; color: #fff; }
+        :root { --blue: #0046be; --yellow: #ffcb05; --bg: #f2f4f7; }
+        body { font-family: 'Roboto', sans-serif; margin: 0; background: var(--bg); color: #333; }
         
-        #admin-panel { display: none; background: #fff; padding: 15px; border-bottom: 3px solid #007bff; }
-        input, select, textarea { width: 100%; padding: 10px; margin: 5px 0; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box; }
-        
-        .container { padding: 10px; max-width: 600px; margin: auto; }
-        .card { background: #fff; border-radius: 10px; overflow: hidden; margin-bottom: 20px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-        .card img { width: 100%; }
-        .card .info { padding: 15px; }
-        .badge { background: #007bff; color: white; padding: 3px 8px; border-radius: 5px; font-size: 10px; text-transform: uppercase; }
-        .prix span { color: #e41e31; font-weight: bold; font-size: 1.2em; }
-        .btn-wa { display: block; background: #25D366; color: white; text-align: center; padding: 12px; text-decoration: none; border-radius: 5px; font-weight: bold; }
+        /* HEADER STYLE COINAFRIQUE */
+        header { background: var(--blue); color: white; padding: 10px 15px; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .top-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+        .search-bar { background: white; border-radius: 4px; display: flex; padding: 8px; align-items: center; }
+        .search-bar input { border: none; width: 100%; outline: none; margin-left: 10px; }
+
+        /* CATEGORIES NAV */
+        .cat-nav { display: flex; overflow-x: auto; background: white; padding: 10px; gap: 20px; border-bottom: 1px solid #ddd; }
+        .cat-item { text-align: center; min-width: 70px; font-size: 11px; cursor: pointer; color: #555; }
+        .cat-item i { display: block; font-size: 20px; color: var(--blue); margin-bottom: 5px; }
+
+        /* FEED (GRILLE) */
+        .container { padding: 10px; max-width: 1200px; margin: auto; }
+        .ad-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+        @media (min-width: 768px) { .ad-grid { grid-template-columns: repeat(4, 1fr); } }
+
+        .ad-card { background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.1); cursor: pointer; }
+        .ad-img { height: 140px; background-size: cover; background-position: center; position: relative; }
+        .ad-cate { position: absolute; bottom: 5px; left: 5px; background: rgba(0,0,0,0.6); color: white; padding: 2px 6px; font-size: 10px; border-radius: 3px; }
+        .ad-info { padding: 10px; }
+        .ad-price { margin: 0; color: var(--blue); font-size: 16px; font-weight: bold; }
+        .ad-title { margin: 5px 0; font-size: 13px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .ad-loc { margin: 0; font-size: 11px; color: #888; }
+
+        /* ADMIN PANEL */
+        #admin-panel { display: none; position: fixed; inset: 0; background: white; z-index: 200; padding: 20px; overflow-y: auto; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; font-weight: bold; }
+        input, select { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box; }
+        .btn-post { background: var(--yellow); color: #000; border: none; padding: 15px; width: 100%; border-radius: 5px; font-weight: bold; font-size: 16px; }
+        .floating-btn { position: fixed; bottom: 20px; right: 20px; background: var(--yellow); width: 60px; height: 60px; border-radius: 30px; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 10px rgba(0,0,0,0.3); border: none; font-size: 24px; z-index: 99; cursor: pointer; }
     </style>
 </head>
 <body>
 
     <header>
-        <h1>CB@Techno</h1>
-        <button onclick="document.getElementById('admin-panel').style.display='block'" style="background:none; border:none; color: #666; font-size:10px;">Admin</button>
+        <div class="top-bar">
+            <span style="font-weight: bold; font-size: 20px;">CB@Techno</span>
+            <i class="fa-regular fa-user" onclick="document.getElementById('admin-panel').style.display='block'"></i>
+        </div>
+        <div class="search-bar">
+            <i class="fa-solid fa-magnifying-glass" style="color: #888;"></i>
+            <input type="text" placeholder="Chercher un téléphone, un écran...">
+        </div>
     </header>
 
-    <div class="nav-filtres">
-        <button class="btn-filtre" onclick="filtrer('Tous')">Tous</button>
-        <button class="btn-filtre" onclick="filtrer('Écrans')">Écrans</button>
-        <button class="btn-filtre" onclick="filtrer('Batteries')">Batteries</button>
-        <button class="btn-filtre" onclick="filtrer('Audio')">Audio</button>
-        <button class="btn-filtre" onclick="filtrer('Réparation')">Réparations</button>
+    <div class="cat-nav">
+        <div class="cat-item"><i class="fa-solid fa-mobile-screen"></i>Téléphones</div>
+        <div class="cat-item"><i class="fa-solid fa-laptop-code"></i>Électronique</div>
+        <div class="cat-item"><i class="fa-solid fa-plug"></i>Accessoires</div>
+        <div class="cat-item"><i class="fa-solid fa-screwdriver-wrench"></i>Services</div>
     </div>
+
+    <div class="container">
+        <h4 style="margin: 15px 0;">Annonces récentes à Lomé</h4>
+        <div class="ad-grid" id="feed">
+            </div>
+    </div>
+
+    <button class="floating-btn" onclick="document.getElementById('admin-panel').style.display='block'"><i class="fa-solid fa-plus"></i></button>
 
     <div id="admin-panel">
-        <input type="file" id="file" accept="image/*">
-        <input type="text" id="nom" placeholder="Nom du produit">
-        <select id="cate">
-            <option value="Écrans">Écrans</option>
-            <option value="Batteries">Batteries</option>
-            <option value="Audio">Audio</option>
-            <option value="Réparation">Service Réparation</option>
-        </select>
-        <textarea id="desc" placeholder="Caractéristiques"></textarea>
-        <input type="number" id="prixN" placeholder="Prix Normal">
-        <input type="number" id="prixR" placeholder="Prix Promo">
-        <button onclick="publierArticle()" style="width:100%; padding:15px; background:#007bff; color:white; border:none; border-radius:5px;">PUBLIER L'ARTICLE</button>
-        <button onclick="document.getElementById('admin-panel').style.display='none'" style="width:100%; background:none; border:none; color:red; margin-top:10px;">Fermer</button>
-    </div>
-
-    <div class="container" id="nouveautes">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+            <h2>Vendre un article</h2>
+            <i class="fa-solid fa-xmark" style="font-size: 24px;" onclick="document.getElementById('admin-panel').style.display='none'"></i>
         </div>
+        <div class="form-group">
+            <label>Photo de l'article</label>
+            <input type="file" id="file" accept="image/*">
+        </div>
+        <div class="form-group">
+            <label>Titre de l'annonce</label>
+            <input type="text" id="nom" placeholder="Ex: iPhone 13 Pro Max - Propre">
+        </div>
+        <div class="form-group">
+            <label>Catégorie</label>
+            <select id="cate">
+                <option>Smartphones</option>
+                <option>Accessoires</option>
+                <option>Réparation</option>
+                <option>Écrans/Batteries</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label>Prix (CFA)</label>
+            <input type="number" id="prix" placeholder="Ex: 150000">
+        </div>
+        <div class="form-group">
+            <label>Quartier (Lomé)</label>
+            <input type="text" id="lieu" placeholder="Ex: Adidogomé, Deckon...">
+        </div>
+        <button class="btn-post" onclick="publierArticle()">VENDRE MAINTENANT</button>
+    </div>
 
 </body>
 </html>
