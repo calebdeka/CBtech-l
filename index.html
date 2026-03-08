@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CB@Techno - Gestionnaire</title>
+    <title>CB@Techno - Boutique & Réparation</title>
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
         import { getFirestore, collection, addDoc, query, onSnapshot, orderBy } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
@@ -22,67 +22,71 @@
         const db = getFirestore(app);
         const storage = getStorage(app);
 
-        // --- FONCTION PUBLICATION (POUR TOI) ---
         window.publierArticle = async () => {
             const pass = prompt("Code propriétaire :");
             if (pass !== "Caleb.1997") return alert("Accès refusé");
-
             const file = document.getElementById('file').files[0];
             const nom = document.getElementById('nom').value;
             const desc = document.getElementById('desc').value;
             const prixN = document.getElementById('prixN').value;
             const prixR = document.getElementById('prixR').value;
-
-            if(!file || !nom || !prixR) return alert("Remplis les champs importants !");
-
-            const storageRef = ref(storage, 'articles/' + file.name);
-            await uploadBytes(storageRef, file);
-            const url = await getDownloadURL(storageRef);
-
-            await addDoc(collection(db, "articles"), {
-                nom, desc, prixN, prixR, url, date: Date.now()
-            });
-            alert("Article publié avec succès !");
+            if(!file || !nom || !prixR) return alert("Remplis les champs !");
+            try {
+                const storageRef = ref(storage, 'articles/' + file.name);
+                await uploadBytes(storageRef, file);
+                const url = await getDownloadURL(storageRef);
+                await addDoc(collection(db, "articles"), { nom, desc, prixN, prixR, url, date: Date.now() });
+                alert("Publié !");
+            } catch (e) { alert("Erreur: Vérifie si 'Storage' est activé en Mode Test sur Firebase."); }
         };
 
-        // --- AFFICHAGE CLIENT ---
-        const container = document.getElementById('catalogue');
         onSnapshot(query(collection(db, "articles"), orderBy("date", "desc")), (snap) => {
-            container.innerHTML = "";
+            const list = document.getElementById('nouveautes');
+            list.innerHTML = "";
             snap.forEach(doc => {
                 const d = doc.data();
-                container.innerHTML += `
-                    <div style="border:1px solid #ddd; margin:10px; padding:15px; border-radius:10px;">
-                        <img src="${d.url}" style="width:100%; border-radius:5px;">
-                        <h3>${d.nom}</h3>
-                        <p>${d.desc}</p>
-                        <p><del>${d.prixN} CFA</del> <b style="color:red;">${d.prixR} CFA</b></p>
-                        <a href="https://wa.me/22870062639?text=Salut Caleb, je veux : ${d.nom}" 
-                           style="background:#25D366; color:white; padding:10px; display:block; text-align:center; text-decoration:none; border-radius:5px;">
-                           Commander sur WhatsApp
-                        </a>
-                    </div>`;
+                list.innerHTML += `<div class="card"><img src="${d.url}"><h3>${d.nom}</h3><p>${d.desc}</p><p><del>${d.prixN} CFA</del> <b style="color:red;">${d.prixR} CFA</b></p><a href="https://wa.me/22870062639?text=Salut Caleb, je veux : ${d.nom}" class="btn-wa">Commander</a></div>`;
             });
         });
     </script>
+    <style>
+        body { font-family: sans-serif; margin: 0; background: #f4f4f4; text-align: center; }
+        .header { background: #000; color: white; padding: 20px; }
+        .admin-btn { font-size: 10px; color: #444; cursor: pointer; background: none; border: none; }
+        .card { background: white; margin: 15px; padding: 15px; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .card img { width: 100%; border-radius: 5px; }
+        .btn-wa { background: #25D366; color: white; padding: 10px; display: block; text-decoration: none; border-radius: 5px; margin-top: 10px; }
+        #admin-panel { display: none; background: #e9ecef; padding: 20px; border-bottom: 2px solid #007bff; }
+        input, textarea { width: 90%; margin-bottom: 10px; padding: 8px; }
+    </style>
 </head>
-<body style="font-family:sans-serif; max-width:600px; margin:auto; background:#f4f4f4;">
+<body>
 
-    <header style="background:#000; color:white; padding:20px; text-align:center;">
+    <div class="header">
         <h1>CB@Techno</h1>
-        <button onclick="document.getElementById('admin').style.display='block'" style="background:none; border:none; color:#333; font-size:10px;">Admin</button>
-    </header>
-
-    <div id="admin" style="display:none; background:white; padding:20px; border-bottom:2px solid #007bff;">
-        <input type="file" id="file" accept="image/*,video/*"><br><br>
-        <input type="text" id="nom" placeholder="Nom de l'article" style="width:100%"><br><br>
-        <textarea id="desc" placeholder="Caractéristiques" style="width:100%"></textarea><br><br>
-        <input type="number" id="prixN" placeholder="Prix Normal" style="width:48%">
-        <input type="number" id="prixR" placeholder="Prix Réduction" style="width:48%"><br><br>
-        <button onclick="publierArticle()" style="width:100%; padding:10px; background:#007bff; color:white; border:none;">PUBLIER MAINTENANT</button>
+        <button class="admin-btn" onclick="document.getElementById('admin-panel').style.display='block'">Admin</button>
     </div>
 
-    <div id="catalogue"></div>
+    <div id="admin-panel">
+        <h3>🚀 Publier un article</h3>
+        <input type="file" id="file" accept="image/*">
+        <input type="text" id="nom" placeholder="Nom de l'article">
+        <textarea id="desc" placeholder="Caractéristiques"></textarea>
+        <input type="number" id="prixN" placeholder="Prix Normal">
+        <input type="number" id="prixR" placeholder="Prix Promo">
+        <button onclick="publierArticle()" style="width:100%; padding:10px; background:#007bff; color:white; border:none;">VALIDER LA PUBLICATION</button>
+        <button onclick="document.getElementById('admin-panel').style.display='none'">Fermer</button>
+    </div>
+
+    <div id="nouveautes"></div>
+
+    <div id="anciens">
+        <div class="card">
+            <h3>Bienvenue chez CB@Techno</h3>
+            <p>Spécialiste en réparation électronique et vente d'accessoires à Lomé.</p>
+            <p><i>Tes anciens articles apparaîtront ici dès que tu les rajouteras dans le code.</i></p>
+        </div>
+    </div>
 
 </body>
 </html>
