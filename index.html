@@ -17,467 +17,71 @@
             --dark: #020c1b;
             --glass: rgba(10, 25, 47, 0.95);
         }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            font-family: 'Poppins', sans-serif;
-            background: var(--dark);
-            color: var(--light);
-            overflow-x: hidden;
-        }
-
-        /* Navigation */
-        nav {
-            background: var(--glass);
-            backdrop-filter: blur(10px);
-            padding: 1rem 5%;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-            border-bottom: 1px solid rgba(100, 255, 218, 0.1);
-            transition: all 0.3s;
-        }
-
-        .nav-container {
-            max-width: 1400px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: var(--secondary);
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 1.5rem;
-            list-style: none;
-            align-items: center;
-        }
-
-        .nav-links a {
-            color: var(--light);
-            text-decoration: none;
-            transition: all 0.3s;
-            font-weight: 500;
-            position: relative;
-            font-size: 0.95rem;
-        }
-
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--secondary);
-            transition: width 0.3s;
-        }
-
-        .nav-links a:hover::after,
-        .nav-links a.active::after {
-            width: 100%;
-        }
-
-        .nav-links a:hover,
-        .nav-links a.active {
-            color: var(--secondary);
-        }
-
-        .dropdown {
-            position: relative;
-        }
-
-        .dropdown-content {
-            display: none;
-            position: absolute;
-            background: var(--glass);
-            min-width: 200px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            border-radius: 10px;
-            top: 100%;
-            margin-top: 1rem;
-            border: 1px solid rgba(100, 255, 218, 0.1);
-            overflow: hidden;
-        }
-
-        .dropdown-content a {
-            display: block;
-            padding: 1rem;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-        }
-
-        .dropdown-content a:hover {
-            background: rgba(100, 255, 218, 0.1);
-        }
-
-        .dropdown:hover .dropdown-content {
-            display: block;
-        }
-
-        .mobile-menu {
-            display: none;
-            font-size: 1.5rem;
-            cursor: pointer;
-            color: var(--secondary);
-        }
-
-        /* Hero Section */
-        .hero {
-            margin-top: 80px;
-            min-height: 90vh;
-            display: flex;
-            align-items: center;
-            padding: 0 5%;
-            background: linear-gradient(135deg, var(--dark) 0%, var(--primary) 100%);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            right: -10%;
-            width: 600px;
-            height: 600px;
-            background: radial-gradient(circle, rgba(100, 255, 218, 0.1) 0%, transparent 70%);
-            animation: pulse 4s ease-in-out infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); opacity: 0.5; }
-            50% { transform: scale(1.1); opacity: 0.8; }
-        }
-
-        .hero-content {
-            max-width: 1400px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
-            align-items: center;
-            position: relative;
-            z-index: 1;
-        }
-
-        .hero-text h1 {
-            font-size: 3.5rem;
-            margin-bottom: 1.5rem;
-            line-height: 1.2;
-        }
-
-        .hero-text h1 span {
-            color: var(--secondary);
-            display: block;
-        }
-
-        .hero-text p {
-            font-size: 1.2rem;
-            margin-bottom: 2rem;
-            opacity: 0.9;
-            line-height: 1.6;
-        }
-
-        .hero-badges {
-            display: flex;
-            gap: 1rem;
-            margin-bottom: 2rem;
-            flex-wrap: wrap;
-        }
-
-        .badge {
-            padding: 0.5rem 1rem;
-            background: rgba(100, 255, 218, 0.1);
-            border: 1px solid var(--secondary);
-            border-radius: 20px;
-            font-size: 0.85rem;
-            color: var(--secondary);
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .cta-buttons {
-            display: flex;
-            gap: 1rem;
-            flex-wrap: wrap;
-        }
-
-        .btn {
-            padding: 1rem 2rem;
-            border-radius: 30px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: all 0.3s;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            border: none;
-            cursor: pointer;
-            font-family: 'Poppins', sans-serif;
-            font-size: 0.95rem;
-        }
-
-        .btn-primary {
-            background: var(--secondary);
-            color: var(--primary);
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 30px rgba(100, 255, 218, 0.3);
-        }
-
-        .btn-secondary {
-            border: 2px solid var(--secondary);
-            color: var(--secondary);
-            background: transparent;
-        }
-
-        .btn-secondary:hover {
-            background: var(--secondary);
-            color: var(--primary);
-        }
-
-        .btn-accent {
-            background: var(--accent);
-            color: white;
-        }
-
-        .btn-accent:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 30px rgba(255, 107, 53, 0.3);
-        }
-
-        .btn-purple {
-            background: var(--purple);
-            color: white;
-        }
-
-        .btn-purple:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 30px rgba(189, 52, 254, 0.3);
-        }
-
-        .hero-image {
-            position: relative;
-        }
-
-        .hero-image img {
-            width: 100%;
-            border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
-            animation: float 6s ease-in-out infinite;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-20px); }
-        }
-
-        /* Services Section */
-        .services {
-            padding: 6rem 5%;
-            background: var(--primary);
-        }
-
-        .section-header {
-            text-align: center;
-            margin-bottom: 4rem;
-        }
-
-        .section-header h2 {
-            font-size: 2.5rem;
-            color: var(--secondary);
-            margin-bottom: 1rem;
-        }
-
-        .section-header p {
-            font-size: 1.1rem;
-            opacity: 0.8;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        .services-grid {
-            max-width: 1400px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-        }
-
-        .service-card {
-            background: var(--glass);
-            padding: 2.5rem;
-            border-radius: 20px;
-            border: 1px solid rgba(100, 255, 218, 0.1);
-            transition: all 0.3s;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .service-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 3px;
-            background: linear-gradient(90deg, var(--secondary), var(--accent));
-            transform: scaleX(0);
-            transition: transform 0.3s;
-        }
-
-        .service-card:hover::before {
-            transform: scaleX(1);
-        }
-
-        .service-card:hover {
-            transform: translateY(-10px);
-            border-color: rgba(100, 255, 218, 0.3);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-        }
-
-        .service-icon {
-            font-size: 3rem;
-            margin-bottom: 1.5rem;
-            background: linear-gradient(135deg, var(--secondary), var(--accent));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .service-card h3 {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-            color: var(--light);
-        }
-
-        .service-card p {
-            opacity: 0.8;
-            line-height: 1.6;
-            margin-bottom: 1.5rem;
-        }
-
-        .devis-tag {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.5rem 1rem;
-            background: rgba(255, 107, 53, 0.2);
-            color: var(--accent);
-            border-radius: 20px;
-            font-weight: 600;
-            font-size: 0.9rem;
-            border: 1px solid var(--accent);
-        }
-
-        /* Studio Section */
-        .studio {
-            padding: 6rem 5%;
-            background: linear-gradient(to bottom, var(--primary), #1a0b2e);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .studio::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: url('data:image/svg+xml,<svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><g fill="%239C92AC" fill-opacity="0.05"><path d="M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z"/></g></svg>');
-            opacity: 0.1;
-        }
-
-        .studio-content {
-            max-width: 1400px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
-            align-items: center;
-            position: relative;
-            z-index: 1;
-        }
-
-        .studio-features {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1.5rem;
-            margin-top: 2rem;
-        }
-
-        .studio-feature {
-            background: rgba(189, 52, 254, 0.1);
-            padding: 1.5rem;
-            border-radius: 15px;
-            border: 1px solid rgba(189, 52, 254, 0.2);
-            text-align: center;
-            transition: all 0.3s;
-        }
-
-        .studio-feature:hover {
-            transform: translateY(-5px);
-            background: rgba(189, 52, 254, 0.2);
-        }
-
-        .studio-feature i {
-            font-size: 2rem;
-            color: var(--purple);
-            margin-bottom: 0.5rem;
-        }
-
-        .studio-visual {
-            position: relative;
-        }
-
-        .studio-card {
-            background: linear-gradient(135deg, rgba(189, 52, 254, 0.2), rgba(10, 25, 47, 0.8));
-            border: 1px solid rgba(189, 52, 254, 0.3);
-            border-radius: 20px;
-            padding: 2rem;
-            backdrop-filter: blur(10px);
-        }
-
-        .equalizer {
-            display: flex;
-            align-items: flex-end;
-            justify-content: center;
-            gap: 0.5rem;
-            height: 100px;
-            margin: 2rem 0;
-        }
-
-        .bar {
-            width: 8px;
-            background: linear-gradient(to top, var(--purple), var(--secondary));
-            border-radius: 4px;
-            animation: equalize 1s ease-in-out infinite;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Poppins', sans-serif; background: var(--dark); color: var(--light); overflow-x: hidden; }
+        nav { background: var(--glass); backdrop-filter: blur(10px); padding: 1rem 5%; position: fixed; width: 100%; top: 0; z-index: 1000; border-bottom: 1px solid rgba(100, 255, 218, 0.1); transition: all 0.3s; }
+        .nav-container { max-width: 1400px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 1.8rem; font-weight: 700; color: var(--secondary); text-decoration: none; display: flex; align-items: center; gap: 0.5rem; }
+        .nav-links { display: flex; gap: 1.5rem; list-style: none; align-items: center; }
+        .nav-links a { color: var(--light); text-decoration: none; transition: all 0.3s; font-weight: 500; position: relative; font-size: 0.95rem; }
+        .nav-links a::after { content: ''; position: absolute; bottom: -5px; left: 0; width: 0; height: 2px; background: var(--secondary); transition: width 0.3s; }
+        .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
+        .nav-links a:hover, .nav-links a.active { color: var(--secondary); }
+        .dropdown { position: relative; }
+        .dropdown-content { display: none; position: absolute; background: var(--glass); min-width: 200px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); border-radius: 10px; top: 100%; margin-top: 1rem; border: 1px solid rgba(100, 255, 218, 0.1); overflow: hidden; }
+        .dropdown-content a { display: block; padding: 1rem; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        .dropdown-content a:hover { background: rgba(100, 255, 218, 0.1); }
+        .dropdown:hover .dropdown-content { display: block; }
+        .mobile-menu { display: none; font-size: 1.5rem; cursor: pointer; color: var(--secondary); }
+        .hero { margin-top: 80px; min-height: 90vh; display: flex; align-items: center; padding: 0 5%; background: linear-gradient(135deg, var(--dark) 0%, var(--primary) 100%); position: relative; overflow: hidden; }
+        .hero::before { content: ''; position: absolute; top: -50%; right: -10%; width: 600px; height: 600px; background: radial-gradient(circle, rgba(100, 255, 218, 0.1) 0%, transparent 70%); animation: pulse 4s ease-in-out infinite; }
+        @keyframes pulse { 0%, 100% { transform: scale(1); opacity: 0.5; } 50% { transform: scale(1.1); opacity: 0.8; } }
+        .hero-content { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; position: relative; z-index: 1; }
+        .hero-text h1 { font-size: 3.5rem; margin-bottom: 1.5rem; line-height: 1.2; }
+        .hero-text h1 span { color: var(--secondary); display: block; }
+        .hero-text p { font-size: 1.2rem; margin-bottom: 2rem; opacity: 0.9; line-height: 1.6; }
+        .hero-badges { display: flex; gap: 1rem; margin-bottom: 2rem; flex-wrap: wrap; }
+        .badge { padding: 0.5rem 1rem; background: rgba(100, 255, 218, 0.1); border: 1px solid var(--secondary); border-radius: 20px; font-size: 0.85rem; color: var(--secondary); display: flex; align-items: center; gap: 0.5rem; }
+        .cta-buttons { display: flex; gap: 1rem; flex-wrap: wrap; }
+        .btn { padding: 1rem 2rem; border-radius: 30px; text-decoration: none; font-weight: 600; transition: all 0.3s; display: inline-flex; align-items: center; gap: 0.5rem; border: none; cursor: pointer; font-family: 'Poppins', sans-serif; font-size: 0.95rem; }
+        .btn-primary { background: var(--secondary); color: var(--primary); }
+        .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(100, 255, 218, 0.3); }
+        .btn-secondary { border: 2px solid var(--secondary); color: var(--secondary); background: transparent; }
+        .btn-secondary:hover { background: var(--secondary); color: var(--primary); }
+        .btn-accent { background: var(--accent); color: white; }
+        .btn-accent:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(255, 107, 53, 0.3); }
+        .btn-purple { background: var(--purple); color: white; }
+        .btn-purple:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(189, 52, 254, 0.3); }
+        .btn-dark { background: var(--dark); color: var(--secondary); border: 2px solid var(--secondary); }
+        .btn-dark:hover { background: var(--secondary); color: var(--dark); }
+        .hero-image { position: relative; }
+        .hero-image img { width: 100%; border-radius: 20px; box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5); animation: float 6s ease-in-out infinite; }
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
+        .services { padding: 6rem 5%; background: var(--primary); }
+        .section-header { text-align: center; margin-bottom: 4rem; }
+        .section-header h2 { font-size: 2.5rem; color: var(--secondary); margin-bottom: 1rem; }
+        .section-header p { font-size: 1.1rem; opacity: 0.8; max-width: 600px; margin: 0 auto; }
+        .services-grid { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
+        .service-card { background: var(--glass); padding: 2.5rem; border-radius: 20px; border: 1px solid rgba(100, 255, 218, 0.1); transition: all 0.3s; position: relative; overflow: hidden; }
+        .service-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 3px; background: linear-gradient(90deg, var(--secondary), var(--accent)); transform: scaleX(0); transition: transform 0.3s; }
+        .service-card:hover::before { transform: scaleX(1); }
+        .service-card:hover { transform: translateY(-10px); border-color: rgba(100, 255, 218, 0.3); box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3); }
+        .service-icon { font-size: 3rem; margin-bottom: 1.5rem; background: linear-gradient(135deg, var(--secondary), var(--accent)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .service-card h3 { font-size: 1.5rem; margin-bottom: 1rem; color: var(--light); }
+        .service-card p { opacity: 0.8; line-height: 1.6; margin-bottom: 1.5rem; }
+        .devis-tag { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1rem; background: rgba(255, 107, 53, 0.2); color: var(--accent); border-radius: 20px; font-weight: 600; font-size: 0.9rem; border: 1px solid var(--accent); }
+        .studio { padding: 6rem 5%; background: linear-gradient(to bottom, var(--primary), #1a0b2e); position: relative; overflow: hidden; }
+        .studio::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%239C92AC' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E"); opacity: 0.1; }
+        .studio-content { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; position: relative; z-index: 1; }
+        .studio-features { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 2rem; }
+        .studio-feature { background: rgba(189, 52, 254, 0.1); padding: 1.5rem; border-radius: 15px; border: 1px solid rgba(189, 52, 254, 0.2); text-align: center; transition: all 0.3s; }
+        .studio-feature:hover { transform: translateY(-5px); background: rgba(189, 52, 254, 0.2); }
+        .studio-feature i { font-size: 2rem; color: var(--purple); margin-bottom: 0.5rem; }
+        .studio-visual { position: relative; }
+        .studio-card { background: linear-gradient(135deg, rgba(189, 52, 254, 0.2), rgba(10, 25, 47, 0.8)); border: 1px solid rgba(189, 52, 254, 0.3); border-radius: 20px; padding: 2rem; backdrop-filter: blur(10px); }
+        .equalizer { display: flex; align-items: flex-end; justify-content: center; gap: 0.5rem; height: 100px; margin: 2rem 0; }
+        .bar { width: 8px; background: linear-gradient(to top, var(--purple), var(--secondary)); border-radius: 4px; animation: equalize 1s ease-in-out infinite; }
         .bar:nth-child(1) { height: 40%; animation-delay: 0.1s; }
         .bar:nth-child(2) { height: 70%; animation-delay: 0.2s; }
         .bar:nth-child(3) { height: 50%; animation-delay: 0.3s; }
@@ -485,732 +89,179 @@
         .bar:nth-child(5) { height: 60%; animation-delay: 0.5s; }
         .bar:nth-child(6) { height: 90%; animation-delay: 0.6s; }
         .bar:nth-child(7) { height: 45%; animation-delay: 0.7s; }
-
-        @keyframes equalize {
-            0%, 100% { transform: scaleY(1); }
-            50% { transform: scaleY(1.3); }
-        }
-
-        /* Import Chine Section */
-        .import-china {
-            padding: 6rem 5%;
-            background: linear-gradient(to bottom, #1a0b2e, var(--dark));
-        }
-
-        .import-grid {
-            max-width: 1400px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 2rem;
-        }
-
-        .import-card {
-            background: var(--glass);
-            border-radius: 20px;
-            overflow: hidden;
-            border: 1px solid rgba(255, 215, 0, 0.2);
-            transition: all 0.3s;
-        }
-
-        .import-card:hover {
-            transform: translateY(-10px);
-            border-color: var(--gold);
-            box-shadow: 0 20px 40px rgba(255, 215, 0, 0.1);
-        }
-
-        .import-header {
-            background: linear-gradient(135deg, rgba(255, 215, 0, 0.2), rgba(10, 25, 47, 0.8));
-            padding: 1.5rem;
-            border-bottom: 1px solid rgba(255, 215, 0, 0.2);
-        }
-
-        .import-header h3 {
-            color: var(--gold);
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .import-body {
-            padding: 2rem;
-        }
-
-        .import-steps {
-            list-style: none;
-            margin-bottom: 2rem;
-        }
-
-        .import-steps li {
-            padding: 1rem 0;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-            display: flex;
-            align-items: flex-start;
-            gap: 1rem;
-        }
-
-        .step-number {
-            width: 30px;
-            height: 30px;
-            background: var(--gold);
-            color: var(--dark);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 700;
-            flex-shrink: 0;
-        }
-
-        .calculator {
-            background: rgba(255, 215, 0, 0.05);
-            padding: 1.5rem;
-            border-radius: 15px;
-            margin-top: 1rem;
-        }
-
-        .calculator h4 {
-            color: var(--gold);
-            margin-bottom: 1rem;
-        }
-
-        .calc-input {
-            width: 100%;
-            padding: 0.8rem;
-            border: 1px solid rgba(255, 215, 0, 0.3);
-            background: rgba(0,0,0,0.3);
-            color: var(--light);
-            border-radius: 8px;
-            margin-bottom: 1rem;
-            font-family: 'Poppins', sans-serif;
-        }
-
-        .calc-result {
-            background: rgba(255, 215, 0, 0.1);
-            padding: 1rem;
-            border-radius: 8px;
-            text-align: center;
-            font-weight: 700;
-            color: var(--gold);
-        }
-
-        /* Gallery Manager Section */
-        .gallery-manager {
-            padding: 6rem 5%;
-            background: var(--primary);
-        }
-
-        .gallery-tabs {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            margin-bottom: 3rem;
-            flex-wrap: wrap;
-        }
-
-        .gallery-tab {
-            padding: 1rem 2rem;
-            background: transparent;
-            border: 2px solid var(--secondary);
-            color: var(--secondary);
-            border-radius: 30px;
-            cursor: pointer;
-            transition: all 0.3s;
-            font-weight: 600;
-            font-family: 'Poppins', sans-serif;
-        }
-
-        .gallery-tab:hover, .gallery-tab.active {
-            background: var(--secondary);
-            color: var(--primary);
-        }
-
-        .gallery-section {
-            display: none;
-        }
-
-        .gallery-section.active {
-            display: block;
-            animation: fadeIn 0.5s;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .gallery-grid {
-            max-width: 1400px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 2rem;
-        }
-
-        .gallery-item {
-            position: relative;
-            border-radius: 15px;
-            overflow: hidden;
-            background: var(--glass);
-            border: 1px solid rgba(100, 255, 218, 0.1);
-            transition: all 0.3s;
-            cursor: pointer;
-            aspect-ratio: 1/1;
-        }
-
-        .gallery-item:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 40px rgba(100, 255, 218, 0.2);
-            border-color: rgba(100, 255, 218, 0.3);
-        }
-
-        .gallery-item img, .gallery-item video {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s;
-        }
-
-        .gallery-item:hover img, .gallery-item:hover video {
-            transform: scale(1.1);
-        }
-
-        .gallery-overlay {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: linear-gradient(to top, rgba(10, 25, 47, 0.95), transparent);
-            padding: 2rem 1.5rem 1.5rem;
-            transform: translateY(100%);
-            transition: transform 0.3s;
-        }
-
-        .gallery-item:hover .gallery-overlay {
-            transform: translateY(0);
-        }
-
-        .gallery-overlay h3 {
-            color: var(--secondary);
-            font-size: 1.2rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .gallery-overlay p {
-            font-size: 0.9rem;
-            opacity: 0.9;
-        }
-
-        .media-badge {
-            position: absolute;
-            top: 1rem;
-            right: 1rem;
-            background: var(--accent);
-            color: white;
-            padding: 0.3rem 0.8rem;
-            border-radius: 20px;
-            font-size: 0.75rem;
-            font-weight: 700;
-            z-index: 10;
-            text-transform: uppercase;
-        }
-
-        .play-icon {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 3rem;
-            color: var(--secondary);
-            opacity: 0.9;
-            transition: all 0.3s;
-            pointer-events: none;
-            background: rgba(0, 0, 0, 0.5);
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .gallery-item:hover .play-icon {
-            transform: translate(-50%, -50%) scale(1.1);
-            background: rgba(100, 255, 218, 0.2);
-        }
-
-        .add-content-btn {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            width: 60px;
-            height: 60px;
-            background: var(--secondary);
-            color: var(--primary);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            cursor: pointer;
-            box-shadow: 0 5px 20px rgba(100, 255, 218, 0.4);
-            transition: all 0.3s;
-            z-index: 999;
-            border: none;
-        }
-
-        .add-content-btn:hover {
-            transform: scale(1.1) rotate(90deg);
-        }
-
-        /* Modal */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.9);
-            z-index: 2000;
-            justify-content: center;
-            align-items: center;
-            backdrop-filter: blur(5px);
-        }
-
-        .modal.active {
-            display: flex;
-        }
-
-        .modal-content {
-            background: var(--glass);
-            padding: 2rem;
-            border-radius: 20px;
-            max-width: 500px;
-            width: 90%;
-            border: 1px solid var(--secondary);
-            max-height: 90vh;
-            overflow-y: auto;
-        }
-
-        .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1.5rem;
-        }
-
-        .modal-header h3 {
-            color: var(--secondary);
-        }
-
-        .close-modal {
-            background: none;
-            border: none;
-            color: var(--light);
-            font-size: 1.5rem;
-            cursor: pointer;
-        }
-
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            color: var(--secondary);
-            font-weight: 500;
-        }
-
-        .form-group input,
-        .form-group select,
-        .form-group textarea {
-            width: 100%;
-            padding: 0.8rem;
-            border: 1px solid rgba(100, 255, 218, 0.3);
-            background: rgba(0,0,0,0.3);
-            color: var(--light);
-            border-radius: 8px;
-            font-family: 'Poppins', sans-serif;
-        }
-
-        /* Pricing Section */
-        .pricing {
-            padding: 6rem 5%;
-            background: var(--dark);
-        }
-
-        .pricing-grid {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
-        }
-
-        .pricing-card {
-            background: var(--glass);
-            border-radius: 20px;
-            padding: 2.5rem;
-            border: 1px solid rgba(100, 255, 218, 0.1);
-            transition: all 0.3s;
-            position: relative;
-        }
-
-        .pricing-card.featured {
-            border-color: var(--secondary);
-            transform: scale(1.05);
-        }
-
-        .pricing-card.featured::before {
-            content: 'Populaire';
-            position: absolute;
-            top: -12px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: var(--accent);
-            color: white;
-            padding: 0.3rem 1rem;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 700;
-        }
-
-        .pricing-card:hover {
-            transform: translateY(-10px);
-            border-color: rgba(100, 255, 218, 0.3);
-        }
-
-        .pricing-card.featured:hover {
-            transform: scale(1.05) translateY(-10px);
-        }
-
-        .pricing-header {
-            text-align: center;
-            margin-bottom: 2rem;
-        }
-
-        .pricing-header h3 {
-            font-size: 1.5rem;
-            color: var(--secondary);
-            margin-bottom: 0.5rem;
-        }
-
-        .price {
-            font-size: 3rem;
-            font-weight: 700;
-            color: var(--light);
-        }
-
-        .price span {
-            font-size: 1rem;
-            opacity: 0.7;
-        }
-
-        .pricing-features {
-            list-style: none;
-            margin-bottom: 2rem;
-        }
-
-        .pricing-features li {
-            padding: 0.8rem 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .pricing-features li i {
-            color: var(--secondary);
-        }
-
-        /* Contact Section */
-        .contact {
-            padding: 6rem 5%;
-            background: linear-gradient(to bottom, var(--dark), var(--primary));
-        }
-
-        .contact-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
-        }
-
-        .contact-info h3 {
-            font-size: 2rem;
-            color: var(--secondary);
-            margin-bottom: 1.5rem;
-        }
-
-        .contact-details {
-            margin-top: 2rem;
-        }
-
-        .contact-item {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            margin-bottom: 1.5rem;
-            font-size: 1.1rem;
-        }
-
-        .contact-item i {
-            color: var(--secondary);
-            font-size: 1.3rem;
-            width: 30px;
-        }
-
-        .contact-form {
-            background: var(--glass);
-            padding: 2.5rem;
-            border-radius: 20px;
-            border: 1px solid rgba(100, 255, 218, 0.1);
-        }
-
-        /* Footer */
-        footer {
-            background: var(--dark);
-            padding: 3rem 5%;
-            text-align: center;
-            border-top: 1px solid rgba(100, 255, 218, 0.1);
-        }
-
-        .footer-content {
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-
-        .social-links {
-            display: flex;
-            justify-content: center;
-            gap: 1.5rem;
-            margin-bottom: 2rem;
-        }
-
-        .social-links a {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background: var(--glass);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--secondary);
-            font-size: 1.3rem;
-            transition: all 0.3s;
-            border: 1px solid rgba(100, 255, 218, 0.2);
-        }
-
-        .social-links a:hover {
-            background: var(--secondary);
-            color: var(--primary);
-            transform: translateY(-5px);
-        }
-
-        .footer-text {
-            opacity: 0.7;
-            margin-top: 1rem;
-        }
-
-        /* Lightbox */
-        .lightbox {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.95);
-            z-index: 2000;
-            justify-content: center;
-            align-items: center;
-            backdrop-filter: blur(10px);
-        }
-
-        .lightbox.active {
-            display: flex;
-        }
-
-        .lightbox-content {
-            max-width: 90%;
-            max-height: 90%;
-            position: relative;
-        }
-
-        .lightbox img, .lightbox video {
-            max-width: 100%;
-            max-height: 90vh;
-            border-radius: 10px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
-        }
-
-        .lightbox-close {
-            position: absolute;
-            top: -50px;
-            right: 0;
-            color: white;
-            font-size: 2.5rem;
-            cursor: pointer;
-            background: none;
-            border: none;
-            transition: transform 0.3s;
-        }
-
-        .lightbox-close:hover {
-            transform: rotate(90deg);
-            color: var(--secondary);
-        }
-
-        .lightbox-nav {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background: rgba(100, 255, 218, 0.2);
-            color: white;
-            border: none;
-            padding: 1.2rem;
-            font-size: 1.5rem;
-            cursor: pointer;
-            border-radius: 50%;
-            transition: all 0.3s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .lightbox-nav:hover {
-            background: var(--secondary);
-            color: var(--primary);
-            transform: translateY(-50%) scale(1.1);
-        }
-
+        @keyframes equalize { 0%, 100% { transform: scaleY(1); } 50% { transform: scaleY(1.3); } }
+        .import-china { padding: 6rem 5%; background: linear-gradient(to bottom, #1a0b2e, var(--dark)); }
+        .import-grid { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 2rem; }
+        .import-card { background: var(--glass); border-radius: 20px; overflow: hidden; border: 1px solid rgba(255, 215, 0, 0.2); transition: all 0.3s; }
+        .import-card:hover { transform: translateY(-10px); border-color: var(--gold); box-shadow: 0 20px 40px rgba(255, 215, 0, 0.1); }
+        .import-header { background: linear-gradient(135deg, rgba(255, 215, 0, 0.2), rgba(10, 25, 47, 0.8)); padding: 1.5rem; border-bottom: 1px solid rgba(255, 215, 0, 0.2); }
+        .import-header h3 { color: var(--gold); display: flex; align-items: center; gap: 0.5rem; }
+        .import-body { padding: 2rem; }
+        .calculator { background: rgba(255, 215, 0, 0.05); padding: 1.5rem; border-radius: 15px; margin-top: 1rem; }
+        .calculator h4 { color: var(--gold); margin-bottom: 1rem; }
+        .calc-input { width: 100%; padding: 0.8rem; border: 1px solid rgba(255, 215, 0, 0.3); background: rgba(0,0,0,0.3); color: var(--light); border-radius: 8px; margin-bottom: 1rem; font-family: 'Poppins', sans-serif; }
+        .calc-result { background: rgba(255, 215, 0, 0.1); padding: 1rem; border-radius: 8px; text-align: center; font-weight: 700; color: var(--gold); }
+        .gallery-manager { padding: 6rem 5%; background: var(--primary); }
+        .gallery-tabs { display: flex; justify-content: center; gap: 1rem; margin-bottom: 3rem; flex-wrap: wrap; }
+        .gallery-tab { padding: 1rem 2rem; background: transparent; border: 2px solid var(--secondary); color: var(--secondary); border-radius: 30px; cursor: pointer; transition: all 0.3s; font-weight: 600; font-family: 'Poppins', sans-serif; }
+        .gallery-tab:hover, .gallery-tab.active { background: var(--secondary); color: var(--primary); }
+        .gallery-section { display: none; }
+        .gallery-section.active { display: block; animation: fadeIn 0.5s; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .gallery-grid { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 2rem; }
+        .gallery-item { position: relative; border-radius: 15px; overflow: hidden; background: var(--glass); border: 1px solid rgba(100, 255, 218, 0.1); transition: all 0.3s; cursor: pointer; aspect-ratio: 1/1; }
+        .gallery-item:hover { transform: translateY(-5px); box-shadow: 0 15px 40px rgba(100, 255, 218, 0.2); border-color: rgba(100, 255, 218, 0.3); }
+        .gallery-item img, .gallery-item video { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; }
+        .gallery-item:hover img, .gallery-item:hover video { transform: scale(1.1); }
+        .gallery-overlay { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(to top, rgba(10, 25, 47, 0.95), transparent); padding: 2rem 1.5rem 1.5rem; transform: translateY(100%); transition: transform 0.3s; }
+        .gallery-item:hover .gallery-overlay { transform: translateY(0); }
+        .gallery-overlay h3 { color: var(--secondary); font-size: 1.2rem; margin-bottom: 0.5rem; }
+        .gallery-overlay p { font-size: 0.9rem; opacity: 0.9; }
+        .media-badge { position: absolute; top: 1rem; right: 1rem; background: var(--accent); color: white; padding: 0.3rem 0.8rem; border-radius: 20px; font-size: 0.75rem; font-weight: 700; z-index: 10; text-transform: uppercase; }
+        .play-icon { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 3rem; color: var(--secondary); opacity: 0.9; transition: all 0.3s; pointer-events: none; background: rgba(0, 0, 0, 0.5); width: 80px; height: 80px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+        .gallery-item:hover .play-icon { transform: translate(-50%, -50%) scale(1.1); background: rgba(100, 255, 218, 0.2); }
+        .add-content-btn { position: fixed; bottom: 30px; right: 30px; width: 60px; height: 60px; background: var(--secondary); color: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; cursor: pointer; box-shadow: 0 5px 20px rgba(100, 255, 218, 0.4); transition: all 0.3s; z-index: 999; border: none; }
+        .add-content-btn:hover { transform: scale(1.1) rotate(90deg); }
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.9); z-index: 2000; justify-content: center; align-items: center; backdrop-filter: blur(5px); }
+        .modal.active { display: flex; }
+        .modal-content { background: var(--glass); padding: 2rem; border-radius: 20px; max-width: 500px; width: 90%; border: 1px solid var(--secondary); max-height: 90vh; overflow-y: auto; }
+        .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; }
+        .modal-header h3 { color: var(--secondary); }
+        .close-modal { background: none; border: none; color: var(--light); font-size: 1.5rem; cursor: pointer; }
+        .form-group { margin-bottom: 1.5rem; }
+        .form-group label { display: block; margin-bottom: 0.5rem; color: var(--secondary); font-weight: 500; }
+        .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 0.8rem; border: 1px solid rgba(100, 255, 218, 0.3); background: rgba(0,0,0,0.3); color: var(--light); border-radius: 8px; font-family: 'Poppins', sans-serif; }
+        .pricing { padding: 6rem 5%; background: var(--dark); }
+        .pricing-grid { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; }
+        .pricing-card { background: var(--glass); border-radius: 20px; padding: 2.5rem; border: 1px solid rgba(100, 255, 218, 0.1); transition: all 0.3s; position: relative; }
+        .pricing-card.featured { border-color: var(--secondary); transform: scale(1.05); }
+        .pricing-card.featured::before { content: 'Populaire'; position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: var(--accent); color: white; padding: 0.3rem 1rem; border-radius: 20px; font-size: 0.8rem; font-weight: 700; }
+        .pricing-card:hover { transform: translateY(-10px); border-color: rgba(100, 255, 218, 0.3); }
+        .pricing-card.featured:hover { transform: scale(1.05) translateY(-10px); }
+        .pricing-header { text-align: center; margin-bottom: 2rem; }
+        .pricing-header h3 { font-size: 1.5rem; color: var(--secondary); margin-bottom: 0.5rem; }
+        .price { font-size: 3rem; font-weight: 700; color: var(--light); }
+        .price span { font-size: 1rem; opacity: 0.7; }
+        .pricing-features { list-style: none; margin-bottom: 2rem; }
+        .pricing-features li { padding: 0.8rem 0; border-bottom: 1px solid rgba(255, 255, 255, 0.1); display: flex; align-items: center; gap: 0.5rem; }
+        .pricing-features li i { color: var(--secondary); }
+        .contact { padding: 6rem 5%; background: linear-gradient(to bottom, var(--dark), var(--primary)); }
+        .contact-container { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; }
+        .contact-info h3 { font-size: 2rem; color: var(--secondary); margin-bottom: 1.5rem; }
+        .contact-details { margin-top: 2rem; }
+        .contact-item { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; font-size: 1.1rem; }
+        .contact-item i { color: var(--secondary); font-size: 1.3rem; width: 30px; }
+        .contact-form { background: var(--glass); padding: 2.5rem; border-radius: 20px; border: 1px solid rgba(100, 255, 218, 0.1); }
+
+        /* NOUVELLE SECTION: TÉLÉCHARGEMENT APP */
+        .app-download { padding: 6rem 5%; background: linear-gradient(135deg, var(--primary) 0%, #1a0b2e 50%, var(--dark) 100%); position: relative; overflow: hidden; }
+        .app-download::before { content: ''; position: absolute; top: -100px; left: -100px; width: 400px; height: 400px; background: radial-gradient(circle, rgba(100, 255, 218, 0.15) 0%, transparent 70%); animation: float 8s ease-in-out infinite; }
+        .app-download::after { content: ''; position: absolute; bottom: -100px; right: -100px; width: 400px; height: 400px; background: radial-gradient(circle, rgba(189, 52, 254, 0.15) 0%, transparent 70%); animation: float 8s ease-in-out infinite reverse; }
+        .app-download-content { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; position: relative; z-index: 1; }
+        .app-download-text h2 { font-size: 2.5rem; color: var(--secondary); margin-bottom: 1rem; }
+        .app-download-text h2 span { color: var(--purple); }
+        .app-download-text p { font-size: 1.1rem; opacity: 0.9; line-height: 1.8; margin-bottom: 2rem; }
+        .app-features { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 2rem; }
+        .app-feature { display: flex; align-items: center; gap: 0.8rem; padding: 0.8rem; background: rgba(100, 255, 218, 0.05); border-radius: 10px; border: 1px solid rgba(100, 255, 218, 0.1); }
+        .app-feature i { color: var(--secondary); font-size: 1.2rem; }
+        .app-feature span { font-size: 0.9rem; }
+        .download-buttons { display: flex; gap: 1rem; flex-wrap: wrap; }
+        .download-btn { display: flex; align-items: center; gap: 0.8rem; padding: 1rem 1.5rem; background: var(--dark); border: 2px solid var(--secondary); border-radius: 15px; color: var(--light); text-decoration: none; transition: all 0.3s; min-width: 180px; }
+        .download-btn:hover { background: var(--secondary); color: var(--dark); transform: translateY(-3px); box-shadow: 0 10px 30px rgba(100, 255, 218, 0.3); }
+        .download-btn i { font-size: 2rem; }
+        .download-btn-text { display: flex; flex-direction: column; align-items: flex-start; }
+        .download-btn-text small { font-size: 0.7rem; opacity: 0.8; }
+        .download-btn-text strong { font-size: 1rem; }
+        .app-visual { display: flex; justify-content: center; align-items: center; }
+        .phone-mockup { position: relative; width: 280px; height: 560px; background: linear-gradient(145deg, #1a1a2e, #16213e); border-radius: 40px; padding: 15px; box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5), 0 0 0 3px rgba(100, 255, 218, 0.3), inset 0 0 30px rgba(100, 255, 218, 0.1); animation: phoneFloat 4s ease-in-out infinite; }
+        @keyframes phoneFloat { 0%, 100% { transform: translateY(0) rotate(-2deg); } 50% { transform: translateY(-15px) rotate(2deg); } }
+        .phone-screen { width: 100%; height: 100%; background: linear-gradient(180deg, var(--primary) 0%, var(--dark) 100%); border-radius: 30px; overflow: hidden; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 2rem; position: relative; }
+        .phone-notch { position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 120px; height: 25px; background: var(--dark); border-radius: 0 0 20px 20px; }
+        .phone-logo { font-size: 3rem; color: var(--secondary); margin-bottom: 1rem; }
+        .phone-app-name { font-size: 1.5rem; font-weight: 700; color: var(--light); margin-bottom: 0.5rem; }
+        .phone-tagline { font-size: 0.8rem; color: var(--secondary); text-align: center; margin-bottom: 2rem; }
+        .phone-features { display: flex; flex-direction: column; gap: 0.8rem; width: 100%; }
+        .phone-feature-item { display: flex; align-items: center; gap: 0.8rem; padding: 0.8rem; background: rgba(100, 255, 218, 0.1); border-radius: 10px; font-size: 0.8rem; }
+        .phone-feature-item i { color: var(--secondary); }
+        /* NOUVELLE SECTION: ADMIN PLUS */
+        .admin-plus { padding: 4rem 5%; background: linear-gradient(to bottom, var(--dark), #0a0a0a); border-top: 3px solid var(--accent); display: none; }
+        .admin-plus.active { display: block; animation: slideUp 0.5s ease; }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(50px); } to { opacity: 1; transform: translateY(0); } }
+        .admin-plus-header { text-align: center; margin-bottom: 3rem; }
+        .admin-plus-header h2 { font-size: 2rem; color: var(--accent); display: flex; align-items: center; justify-content: center; gap: 0.8rem; }
+        .admin-plus-header p { opacity: 0.7; margin-top: 0.5rem; }
+        .admin-grid { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
+        .admin-card { background: rgba(255, 107, 53, 0.05); border: 2px solid rgba(255, 107, 53, 0.3); border-radius: 20px; padding: 2rem; transition: all 0.3s; }
+        .admin-card:hover { border-color: var(--accent); transform: translateY(-5px); box-shadow: 0 15px 40px rgba(255, 107, 53, 0.2); }
+        .admin-card-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; }
+        .admin-card-header i { font-size: 2rem; color: var(--accent); }
+        .admin-card-header h3 { color: var(--light); }
+        .admin-card p { opacity: 0.8; font-size: 0.9rem; margin-bottom: 1.5rem; }
+        .admin-btn { width: 100%; padding: 1rem; background: var(--accent); color: white; border: none; border-radius: 10px; font-family: 'Poppins', sans-serif; font-weight: 600; cursor: pointer; transition: all 0.3s; display: flex; align-items: center; justify-content: center; gap: 0.5rem; }
+        .admin-btn:hover { background: #ff8555; transform: translateY(-2px); }
+        .admin-login-btn { position: fixed; bottom: 30px; left: 30px; width: 50px; height: 50px; background: rgba(255, 107, 53, 0.2); border: 2px solid var(--accent); border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.3s; z-index: 998; color: var(--accent); font-size: 1.2rem; }
+        .admin-login-btn:hover { background: var(--accent); color: white; transform: scale(1.1); }
+        .admin-modal-content { max-width: 600px; }
+        .section-selector { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.8rem; margin-bottom: 1.5rem; }
+        .section-option { padding: 1rem; background: rgba(100, 255, 218, 0.05); border: 2px solid rgba(100, 255, 218, 0.2); border-radius: 10px; cursor: pointer; text-align: center; transition: all 0.3s; }
+        .section-option:hover, .section-option.selected { background: rgba(100, 255, 218, 0.2); border-color: var(--secondary); }
+        .section-option i { font-size: 1.5rem; color: var(--secondary); margin-bottom: 0.5rem; display: block; }
+        .section-option span { font-size: 0.85rem; }
+        .password-modal .modal-content { max-width: 400px; text-align: center; }
+        .password-modal h3 { color: var(--accent); margin-bottom: 1rem; }
+        .password-input { width: 100%; padding: 1rem; border: 2px solid rgba(255, 107, 53, 0.3); background: rgba(0,0,0,0.3); color: var(--light); border-radius: 10px; font-family: 'Poppins', sans-serif; font-size: 1.1rem; text-align: center; letter-spacing: 0.3rem; margin-bottom: 1rem; }
+        .password-hint { font-size: 0.8rem; opacity: 0.6; margin-top: 1rem; }
+        footer { background: var(--dark); padding: 3rem 5%; text-align: center; border-top: 1px solid rgba(100, 255, 218, 0.1); }
+        .footer-content { max-width: 1400px; margin: 0 auto; }
+        .social-links { display: flex; justify-content: center; gap: 1.5rem; margin-bottom: 2rem; }
+        .social-links a { width: 50px; height: 50px; border-radius: 50%; background: var(--glass); display: flex; align-items: center; justify-content: center; color: var(--secondary); font-size: 1.3rem; transition: all 0.3s; border: 1px solid rgba(100, 255, 218, 0.2); }
+        .social-links a:hover { background: var(--secondary); color: var(--primary); transform: translateY(-5px); }
+        .footer-text { opacity: 0.7; margin-top: 1rem; }
+        .lightbox { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.95); z-index: 2000; justify-content: center; align-items: center; backdrop-filter: blur(10px); }
+        .lightbox.active { display: flex; }
+        .lightbox-content { max-width: 90%; max-height: 90%; position: relative; }
+        .lightbox img, .lightbox video { max-width: 100%; max-height: 90vh; border-radius: 10px; box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5); }
+        .lightbox-close { position: absolute; top: -50px; right: 0; color: white; font-size: 2.5rem; cursor: pointer; background: none; border: none; transition: transform 0.3s; }
+        .lightbox-close:hover { transform: rotate(90deg); color: var(--secondary); }
+        .lightbox-nav { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(100, 255, 218, 0.2); color: white; border: none; padding: 1.2rem; font-size: 1.5rem; cursor: pointer; border-radius: 50%; transition: all 0.3s; display: flex; align-items: center; justify-content: center; }
+        .lightbox-nav:hover { background: var(--secondary); color: var(--primary); transform: translateY(-50%) scale(1.1); }
         .lightbox-prev { left: -80px; }
         .lightbox-next { right: -80px; }
-
-        .lightbox-counter {
-            position: absolute;
-            bottom: -40px;
-            left: 50%;
-            transform: translateX(-50%);
-            color: var(--secondary);
-            font-weight: 600;
-            font-size: 1.1rem;
-        }
-
-        /* Responsive */
+        .lightbox-counter { position: absolute; bottom: -40px; left: 50%; transform: translateX(-50%); color: var(--secondary); font-weight: 600; font-size: 1.1rem; }
         @media (max-width: 968px) {
-            .hero-content, .studio-content, .contact-container {
-                grid-template-columns: 1fr;
-            }
-
-            .hero-text h1 {
-                font-size: 2.5rem;
-            }
-
-            .hero-image {
-                display: none;
-            }
-
-            .nav-links {
-                display: none;
-                position: absolute;
-                top: 100%;
-                left: 0;
-                width: 100%;
-                background: var(--glass);
-                flex-direction: column;
-                padding: 2rem;
-            }
-
-            .nav-links.active {
-                display: flex;
-            }
-
-            .mobile-menu {
-                display: block;
-            }
-
-            .studio-features {
-                grid-template-columns: 1fr;
-            }
-
+            .hero-content, .studio-content, .contact-container, .app-download-content { grid-template-columns: 1fr; }
+            .hero-text h1 { font-size: 2.5rem; }
+            .hero-image, .app-visual { display: none; }
+            .nav-links { display: none; position: absolute; top: 100%; left: 0; width: 100%; background: var(--glass); flex-direction: column; padding: 2rem; }
+            .nav-links.active { display: flex; }
+            .mobile-menu { display: block; }
+            .studio-features, .app-features { grid-template-columns: 1fr; }
             .lightbox-prev { left: 20px; }
             .lightbox-next { right: 20px; }
-
-            .pricing-card.featured {
-                transform: none;
-            }
-
-            .pricing-card.featured:hover {
-                transform: translateY(-10px);
-            }
+            .pricing-card.featured { transform: none; }
+            .pricing-card.featured:hover { transform: translateY(-10px); }
+            .admin-grid { grid-template-columns: 1fr; }
+            .section-selector { grid-template-columns: 1fr; }
+            .download-buttons { justify-content: center; }
         }
-
-        /* Animations */
-        .fade-in {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.6s;
-        }
-
-        .fade-in.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* Scrollbar */
-        ::-webkit-scrollbar {
-            width: 10px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: var(--dark);
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: var(--secondary);
-            border-radius: 5px;
-        }
-
-        ::-webkit-scrollbar-thumb:hover {
-            background: #4fd1c5;
-        }
-
-        /* Admin Panel Indicator */
-        .admin-badge {
-            position: fixed;
-            top: 100px;
-            right: 20px;
-            background: var(--accent);
-            color: white;
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 700;
-            z-index: 998;
-            display: none;
-        }
-
-        .admin-badge.active {
-            display: block;
-        }
+        .fade-in { opacity: 0; transform: translateY(30px); transition: all 0.6s; }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
+        ::-webkit-scrollbar { width: 10px; }
+        ::-webkit-scrollbar-track { background: var(--dark); }
+        ::-webkit-scrollbar-thumb { background: var(--secondary); border-radius: 5px; }
+        ::-webkit-scrollbar-thumb:hover { background: #4fd1c5; }
+        .admin-badge { position: fixed; top: 100px; right: 20px; background: var(--accent); color: white; padding: 0.5rem 1rem; border-radius: 20px; font-size: 0.8rem; font-weight: 700; z-index: 998; display: none; }
+        .admin-badge.active { display: block; }
+        .qr-section { text-align: center; margin-top: 2rem; padding: 1.5rem; background: rgba(100, 255, 218, 0.05); border-radius: 15px; border: 1px dashed rgba(100, 255, 218, 0.3); }
+        .qr-section p { font-size: 0.9rem; opacity: 0.8; margin-bottom: 1rem; }
+        .qr-placeholder { width: 150px; height: 150px; background: white; border-radius: 10px; margin: 0 auto; display: flex; align-items: center; justify-content: center; color: var(--dark); font-size: 4rem; }
     </style>
 </head>
 <body>
-
-    <div class="admin-badge" id="adminBadge">
-        <i class="fas fa-cog fa-spin"></i> Mode Admin Actif
-    </div>
-
+    <div class="admin-badge" id="adminBadge"><i class="fas fa-cog fa-spin"></i> Mode Admin Actif</div>
     <nav id="navbar">
         <div class="nav-container">
-            <a href="#" class="logo">
-                <i class="fas fa-mobile-alt"></i>
-                CB@Techno
-            </a>
+            <a href="#" class="logo"><i class="fas fa-mobile-alt"></i> CB@Techno</a>
             <ul class="nav-links" id="navLinks">
                 <li><a href="#accueil" class="active">Accueil</a></li>
                 <li><a href="#services">Services Tech</a></li>
@@ -1227,14 +278,12 @@
                 <li><a href="#studio">Studio</a></li>
                 <li><a href="#import">Import Chine</a></li>
                 <li><a href="#tarifs">Tarifs</a></li>
+                <li><a href="#app-download">App Mobile</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
-            <div class="mobile-menu" onclick="toggleMenu()">
-                <i class="fas fa-bars"></i>
-            </div>
+            <div class="mobile-menu" onclick="toggleMenu()"><i class="fas fa-bars"></i></div>
         </div>
     </nav>
-
     <section class="hero" id="accueil">
         <div class="hero-content">
             <div class="hero-text fade-in">
@@ -1246,18 +295,9 @@
                 <h1>Vos Solutions <span>Tech & Créatives</span> à Lomé</h1>
                 <p>Réparation mobile à domicile, studio d'enregistrement professionnel, et service d'importation Chine-Togo. Trois expertises, un seul interlocuteur de confiance.</p>
                 <div class="cta-buttons">
-                    <a href="#services" class="btn btn-primary">
-                        <i class="fas fa-tools"></i>
-                        Nos Services
-                    </a>
-                    <a href="#studio" class="btn btn-purple">
-                        <i class="fas fa-microphone-lines"></i>
-                        Le Studio
-                    </a>
-                    <a href="#import" class="btn btn-accent">
-                        <i class="fas fa-plane"></i>
-                        Import Chine
-                    </a>
+                    <a href="#services" class="btn btn-primary"><i class="fas fa-tools"></i> Nos Services</a>
+                    <a href="#studio" class="btn btn-purple"><i class="fas fa-microphone-lines"></i> Le Studio</a>
+                    <a href="#import" class="btn btn-accent"><i class="fas fa-plane"></i> Import Chine</a>
                 </div>
             </div>
             <div class="hero-image fade-in">
@@ -1265,7 +305,6 @@
             </div>
         </div>
     </section>
-
     <section class="services" id="services">
         <div class="section-header fade-in">
             <h2>Nos Services Tech</h2>
@@ -1273,49 +312,37 @@
         </div>
         <div class="services-grid">
             <div class="service-card fade-in">
-                <div class="service-icon">
-                    <i class="fas fa-mobile-screen"></i>
-                </div>
+                <div class="service-icon"><i class="fas fa-mobile-screen"></i></div>
                 <h3>Réparation Mobile</h3>
                 <p>Remplacement d'écran, batterie, connecteurs. Toutes marques avec garantie. Diagnostic gratuit.</p>
                 <span class="devis-tag"><i class="fas fa-handshake"></i> Sur Devis</span>
             </div>
             <div class="service-card fade-in">
-                <div class="service-icon">
-                    <i class="fas fa-satellite-dish"></i>
-                </div>
+                <div class="service-icon"><i class="fas fa-satellite-dish"></i></div>
                 <h3>Installation Parabolique</h3>
                 <p>Installation et réglage d'antennes paraboliques HD. Configuration complète et optimisée.</p>
                 <span class="devis-tag"><i class="fas fa-handshake"></i> Sur Devis</span>
             </div>
             <div class="service-card fade-in">
-                <div class="service-icon">
-                    <i class="fas fa-wifi"></i>
-                </div>
+                <div class="service-icon"><i class="fas fa-wifi"></i></div>
                 <h3>Configuration WiFi</h3>
                 <p>Installation réseau, routeur, extension de couverture. Sécurisation complète de votre connexion.</p>
                 <span class="devis-tag"><i class="fas fa-handshake"></i> Sur Devis</span>
             </div>
             <div class="service-card fade-in">
-                <div class="service-icon">
-                    <i class="fas fa-video"></i>
-                </div>
+                <div class="service-icon"><i class="fas fa-video"></i></div>
                 <h3>Caméras Surveillance</h3>
                 <p>Installation systèmes CCTV et caméras IP. Vision nocturne et accès à distance via smartphone.</p>
                 <span class="devis-tag"><i class="fas fa-handshake"></i> Sur Devis</span>
             </div>
             <div class="service-card fade-in">
-                <div class="service-icon">
-                    <i class="fas fa-headphones"></i>
-                </div>
+                <div class="service-icon"><i class="fas fa-headphones"></i></div>
                 <h3>Vente Accessoires</h3>
                 <p>Coques, écouteurs, batteries, chargeurs rapides. Large gamme de produits de qualité.</p>
                 <span class="devis-tag"><i class="fas fa-handshake"></i> Sur Devis</span>
             </div>
             <div class="service-card fade-in">
-                <div class="service-icon">
-                    <i class="fas fa-house-signal"></i>
-                </div>
+                <div class="service-icon"><i class="fas fa-house-signal"></i></div>
                 <h3>Intervention Domicile</h3>
                 <p>Service rapide à votre domicile ou bureau sur Lomé. Disponible 6 jours sur 7.</p>
                 <span class="devis-tag"><i class="fas fa-handshake"></i> Sur Devis</span>
@@ -1330,56 +357,22 @@
                     <h2 style="color: var(--purple);">Studio d'Enregistrement</h2>
                     <p>Production audio professionnelle à Lomé - Tarifs négociables selon projet</p>
                 </div>
-                <p style="font-size: 1.1rem; line-height: 1.8; margin-bottom: 2rem;">
-                    Notre studio est équipé pour l'enregistrement, le mixage et le mastering de vos projets musicaux, podcasts, voix-off et publicités. Qualité professionnelle à prix accessible et négociable selon vos besoins.
-                </p>
+                <p style="font-size: 1.1rem; line-height: 1.8; margin-bottom: 2rem;">Notre studio est équipé pour l'enregistrement, le mixage et le mastering de vos projets musicaux, podcasts, voix-off et publicités. Qualité professionnelle à prix accessible et négociable selon vos besoins.</p>
                 <div class="studio-features">
-                    <div class="studio-feature">
-                        <i class="fas fa-microphone"></i>
-                        <h4>Enregistrement Vocal</h4>
-                        <p>Chant, rap, voix-off</p>
-                    </div>
-                    <div class="studio-feature">
-                        <i class="fas fa-sliders"></i>
-                        <h4>Mixage & Mastering</h4>
-                        <p>Production finale pro</p>
-                    </div>
-                    <div class="studio-feature">
-                        <i class="fas fa-podcast"></i>
-                        <h4>Podcasts</h4>
-                        <p>Émission & interviews</p>
-                    </div>
-                    <div class="studio-feature">
-                        <i class="fas fa-music"></i>
-                        <h4>Instru & Beats</h4>
-                        <p>Production musicale</p>
-                    </div>
+                    <div class="studio-feature"><i class="fas fa-microphone"></i><h4>Enregistrement Vocal</h4><p>Chant, rap, voix-off</p></div>
+                    <div class="studio-feature"><i class="fas fa-sliders"></i><h4>Mixage & Mastering</h4><p>Production finale pro</p></div>
+                    <div class="studio-feature"><i class="fas fa-podcast"></i><h4>Podcasts</h4><p>Émission & interviews</p></div>
+                    <div class="studio-feature"><i class="fas fa-music"></i><h4>Instru & Beats</h4><p>Production musicale</p></div>
                 </div>
                 <div class="cta-buttons" style="margin-top: 2rem;">
-                    <a href="#contact" class="btn btn-purple">
-                        <i class="fas fa-calendar"></i>
-                        Demander un Devis
-                    </a>
-                    <a href="#galerie" onclick="switchGallery('studio')" class="btn btn-secondary">
-                        <i class="fas fa-images"></i>
-                        Voir le Studio
-                    </a>
+                    <a href="#contact" class="btn btn-purple"><i class="fas fa-calendar"></i> Demander un Devis</a>
+                    <a href="#galerie" onclick="switchGallery('studio')" class="btn btn-secondary"><i class="fas fa-images"></i> Voir le Studio</a>
                 </div>
             </div>
             <div class="studio-visual fade-in">
                 <div class="studio-card">
-                    <h3 style="color: var(--purple); text-align: center; margin-bottom: 1rem;">
-                        <i class="fas fa-wave-square"></i> Enregistrement en Cours
-                    </h3>
-                    <div class="equalizer">
-                        <div class="bar"></div>
-                        <div class="bar"></div>
-                        <div class="bar"></div>
-                        <div class="bar"></div>
-                        <div class="bar"></div>
-                        <div class="bar"></div>
-                        <div class="bar"></div>
-                    </div>
+                    <h3 style="color: var(--purple); text-align: center; margin-bottom: 1rem;"><i class="fas fa-wave-square"></i> Enregistrement en Cours</h3>
+                    <div class="equalizer"><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div></div>
                     <div style="text-align: center; margin-top: 1rem;">
                         <p style="color: var(--secondary); font-size: 0.9rem;">Studio équipé :</p>
                         <div style="display: flex; justify-content: center; gap: 2rem; margin-top: 1rem; flex-wrap: wrap;">
@@ -1392,7 +385,6 @@
             </div>
         </div>
     </section>
-
     <section class="import-china" id="import">
         <div class="section-header fade-in">
             <h2 style="color: var(--gold);">Commande Chine → Togo</h2>
@@ -1400,144 +392,64 @@
         </div>
         <div class="import-grid">
             <div class="import-card fade-in">
-                <div class="import-header">
-                    <h3><i class="fas fa-camera"></i> Recherche Photo & Sourcing</h3>
-                </div>
+                <div class="import-header"><h3><i class="fas fa-camera"></i> Recherche Photo & Sourcing</h3></div>
                 <div class="import-body">
                     <p style="margin-bottom: 1rem; opacity: 0.9;">Vous avez une photo ou un nom de produit ? Je le trouve pour vous au meilleur prix.</p>
-                    
                     <div class="calculator" style="background: rgba(255, 215, 0, 0.1);">
-                        <div class="form-group">
-                            <label>Article à rechercher</label>
-                            <input type="text" id="sourcingName" class="calc-input" placeholder="Ex: Salon cuir, Machine de presse...">
-                        </div>
-                        <div class="form-group">
-                            <label>Quantité souhaitée</label>
-                            <input type="text" id="sourcingQty" class="calc-input" placeholder="Ex: 1 pièce / 10 cartons">
-                        </div>
-                        <div class="form-group">
-                            <label>Budget Estimé (FCFA)</label>
-                            <input type="text" id="sourcingBudget" class="calc-input" placeholder="Ex: 200.000 FCFA">
-                        </div>
-                        <button onclick="sendSourcingWhatsApp()" class="btn btn-accent" style="width: 100%; justify-content: center; font-weight: 700;">
-                            <i class="fab fa-whatsapp"></i> DEMANDER LES PHOTOS
-                        </button>
+                        <div class="form-group"><label>Article à rechercher</label><input type="text" id="sourcingName" class="calc-input" placeholder="Ex: Salon cuir, Machine de presse..."></div>
+                        <div class="form-group"><label>Quantité souhaitée</label><input type="text" id="sourcingQty" class="calc-input" placeholder="Ex: 1 pièce / 10 cartons"></div>
+                        <div class="form-group"><label>Budget Estimé (FCFA)</label><input type="text" id="sourcingBudget" class="calc-input" placeholder="Ex: 200.000 FCFA"></div>
+                        <button onclick="sendSourcingWhatsApp()" class="btn btn-accent" style="width: 100%; justify-content: center; font-weight: 700;"><i class="fab fa-whatsapp"></i> DEMANDER LES PHOTOS</button>
                     </div>
-                    <p style="font-size: 0.8rem; margin-top: 1rem; opacity: 0.7; font-style: italic; text-align: center;">
-                        <i class="fas fa-info-circle"></i> Service de recherche gratuit.
-                    </p>
+                    <p style="font-size: 0.8rem; margin-top: 1rem; opacity: 0.7; font-style: italic; text-align: center;"><i class="fas fa-info-circle"></i> Service de recherche gratuit.</p>
                 </div>
             </div>
-
             <div class="import-card fade-in">
-                <div class="import-header">
-                    <h3><i class="fas fa-calculator"></i> Estimateur d'Import</h3>
-                </div>
+                <div class="import-header"><h3><i class="fas fa-calculator"></i> Estimateur d'Import</h3></div>
                 <div class="import-body">
                     <p style="margin-bottom: 1.5rem; opacity: 0.9;">Estimez le coût de votre importation (tarifs indicatifs, négociables selon volume) :</p>
-                    
                     <div class="calculator">
-                        <div class="form-group">
-                            <label>Prix du produit (USD)</label>
-                            <input type="number" id="productPrice" class="calc-input" placeholder="Ex: 100" oninput="calculateImport()">
-                        </div>
-                        <div class="form-group">
-                            <label>Poids estimé (kg)</label>
-                            <input type="number" id="productWeight" class="calc-input" placeholder="Ex: 2" oninput="calculateImport()">
-                        </div>
-                        <div class="form-group">
-                            <label>Mode de transport</label>
-                            <select id="transportMode" class="calc-input" onchange="calculateImport()">
-                                <option value="sea">Fret Maritime (15-25 jours)</option>
-                                <option value="air">Fret Aérien (5-7 jours)</option>
-                            </select>
-                        </div>
-                        <div class="calc-result" id="calcResult">
-                            Total estimé: 0 FCFA
-                        </div>
-                        <p style="font-size: 0.8rem; margin-top: 1rem; opacity: 0.6;">
-                            *Estimation indicative. Tarifs négociables selon volume et régularité.
-                        </p>
+                        <div class="form-group"><label>Prix du produit (USD)</label><input type="number" id="productPrice" class="calc-input" placeholder="Ex: 100" oninput="calculateImport()"></div>
+                        <div class="form-group"><label>Poids estimé (kg)</label><input type="number" id="productWeight" class="calc-input" placeholder="Ex: 2" oninput="calculateImport()"></div>
+                        <div class="form-group"><label>Mode de transport</label><select id="transportMode" class="calc-input" onchange="calculateImport()"><option value="sea">Fret Maritime (15-25 jours)</option><option value="air">Fret Aérien (5-7 jours)</option></select></div>
+                        <div class="calc-result" id="calcResult">Total estimé: 0 FCFA</div>
+                        <p style="font-size: 0.8rem; margin-top: 1rem; opacity: 0.6;">*Estimation indicative. Tarifs négociables selon volume et régularité.</p>
                     </div>
                 </div>
             </div>
-
             <div class="import-card fade-in">
-                <div class="import-header">
-                    <h3><i class="fas fa-box-open"></i> Produits Disponibles</h3>
-                </div>
+                <div class="import-header"><h3><i class="fas fa-box-open"></i> Produits Disponibles</h3></div>
                 <div class="import-body">
                     <ul style="list-style: none; margin-bottom: 1.5rem;">
-                        <li style="padding: 0.8rem 0; border-bottom: 1px solid rgba(255,255,255,0.1); display: flex; justify-content: space-between;">
-                            <span><i class="fas fa-mobile-screen" style="color: var(--gold); margin-right: 0.5rem;"></i> Électronique & Tech</span>
-                        </li>
-                        <li style="padding: 0.8rem 0; border-bottom: 1px solid rgba(255,255,255,0.1); display: flex; justify-content: space-between;">
-                            <span><i class="fas fa-blender" style="color: var(--gold); margin-right: 0.5rem;"></i> Électroménager</span>
-                        </li>
-                        <li style="padding: 0.8rem 0; border-bottom: 1px solid rgba(255,255,255,0.1); display: flex; justify-content: space-between;">
-                            <span><i class="fas fa-tshirt" style="color: var(--gold); margin-right: 0.5rem;"></i> Textiles & Chaussures</span>
-                        </li>
-                        <li style="padding: 0.8rem 0; border-bottom: 1px solid rgba(255,255,255,0.1); display: flex; justify-content: space-between;">
-                            <span><i class="fas fa-utensils" style="color: var(--gold); margin-right: 0.5rem;"></i> Ustensiles de Cuisine</span>
-                        </li>
-                        <li style="padding: 0.8rem 0; display: flex; justify-content: space-between;">
-                            <span><i class="fas fa-plus" style="color: var(--gold); margin-right: 0.5rem;"></i> Et bien plus encore...</span>
-                        </li>
+                        <li style="padding: 0.8rem 0; border-bottom: 1px solid rgba(255,255,255,0.1); display: flex; justify-content: space-between;"><span><i class="fas fa-mobile-screen" style="color: var(--gold); margin-right: 0.5rem;"></i> Électronique & Tech</span></li>
+                        <li style="padding: 0.8rem 0; border-bottom: 1px solid rgba(255,255,255,0.1); display: flex; justify-content: space-between;"><span><i class="fas fa-blender" style="color: var(--gold); margin-right: 0.5rem;"></i> Électroménager</span></li>
+                        <li style="padding: 0.8rem 0; border-bottom: 1px solid rgba(255,255,255,0.1); display: flex; justify-content: space-between;"><span><i class="fas fa-tshirt" style="color: var(--gold); margin-right: 0.5rem;"></i> Textiles & Chaussures</span></li>
+                        <li style="padding: 0.8rem 0; border-bottom: 1px solid rgba(255,255,255,0.1); display: flex; justify-content: space-between;"><span><i class="fas fa-utensils" style="color: var(--gold); margin-right: 0.5rem;"></i> Ustensiles de Cuisine</span></li>
+                        <li style="padding: 0.8rem 0; display: flex; justify-content: space-between;"><span><i class="fas fa-plus" style="color: var(--gold); margin-right: 0.5rem;"></i> Et bien plus encore...</span></li>
                     </ul>
-                    <a href="#galerie" onclick="switchGallery('import')" class="btn btn-secondary" style="width: 100%; justify-content: center;">
-                        <i class="fas fa-images"></i>
-                        Voir Tous les Produits (20+)
-                    </a>
+                    <a href="#galerie" onclick="switchGallery('import')" class="btn btn-secondary" style="width: 100%; justify-content: center;"><i class="fas fa-images"></i> Voir Tous les Produits (20+)</a>
                 </div>
             </div>
         </div>
     </section>
-
     <section class="gallery-manager" id="galerie">
         <div class="section-header fade-in">
             <h2>Nos Galeries Photos & Vidéos</h2>
             <p>Découvrez nos réalisations et produits disponibles à l'importation</p>
         </div>
-
         <div class="gallery-tabs fade-in">
-            <button class="gallery-tab active" onclick="switchGallery('tech')">
-                <i class="fas fa-tools"></i> Tech <span style="background: var(--accent); color: white; padding: 0.2rem 0.5rem; border-radius: 10px; font-size: 0.7rem; margin-left: 0.5rem;">NEW</span>
-            </button>
-            <button class="gallery-tab" onclick="switchGallery('studio')">
-                <i class="fas fa-microphone"></i> Studio
-            </button>
-            <button class="gallery-tab" onclick="switchGallery('import')">
-                <i class="fas fa-plane"></i> Import Chine <span style="background: var(--accent); color: white; padding: 0.2rem 0.5rem; border-radius: 10px; font-size: 0.7rem; margin-left: 0.5rem;">20+</span>
-            </button>
-            <button class="gallery-tab" onclick="switchGallery('events')">
-                <i class="fas fa-calendar-star"></i> Événements
-            </button>
-            <button class="gallery-tab" onclick="switchGallery('divers')">
-                <i class="fas fa-layer-group"></i> Divers
-            </button>
+            <button class="gallery-tab active" onclick="switchGallery('tech')"><i class="fas fa-tools"></i> Tech <span style="background: var(--accent); color: white; padding: 0.2rem 0.5rem; border-radius: 10px; font-size: 0.7rem; margin-left: 0.5rem;">NEW</span></button>
+            <button class="gallery-tab" onclick="switchGallery('studio')"><i class="fas fa-microphone"></i> Studio</button>
+            <button class="gallery-tab" onclick="switchGallery('import')"><i class="fas fa-plane"></i> Import Chine <span style="background: var(--accent); color: white; padding: 0.2rem 0.5rem; border-radius: 10px; font-size: 0.7rem; margin-left: 0.5rem;">20+</span></button>
+            <button class="gallery-tab" onclick="switchGallery('events')"><i class="fas fa-calendar-star"></i> Événements</button>
+            <button class="gallery-tab" onclick="switchGallery('divers')"><i class="fas fa-layer-group"></i> Divers</button>
         </div>
-
-        <div id="gallery-tech" class="gallery-section active">
-            <div class="gallery-grid" id="grid-tech"></div>
-        </div>
-
-        <div id="gallery-studio" class="gallery-section">
-            <div class="gallery-grid" id="grid-studio"></div>
-        </div>
-
-        <div id="gallery-import" class="gallery-section">
-            <div class="gallery-grid" id="grid-import"></div>
-        </div>
-
-        <div id="gallery-events" class="gallery-section">
-            <div class="gallery-grid" id="grid-events"></div>
-        </div>
-
-        <div id="gallery-divers" class="gallery-section">
-            <div class="gallery-grid" id="grid-divers"></div>
-        </div>
+        <div id="gallery-tech" class="gallery-section active"><div class="gallery-grid" id="grid-tech"></div></div>
+        <div id="gallery-studio" class="gallery-section"><div class="gallery-grid" id="grid-studio"></div></div>
+        <div id="gallery-import" class="gallery-section"><div class="gallery-grid" id="grid-import"></div></div>
+        <div id="gallery-events" class="gallery-section"><div class="gallery-grid" id="grid-events"></div></div>
+        <div id="gallery-divers" class="gallery-section"><div class="gallery-grid" id="grid-divers"></div></div>
     </section>
-
     <section class="pricing" id="tarifs">
         <div class="section-header fade-in">
             <h2>Nos Tarifs</h2>
@@ -1545,123 +457,126 @@
         </div>
         <div class="pricing-grid">
             <div class="pricing-card fade-in">
-                <div class="pricing-header">
-                    <h3>Réparation Mobile</h3>
-                    <div class="price" style="font-size: 1.5rem; color: var(--accent);">Sur Devis</div>
-                </div>
-                <ul class="pricing-features">
-                    <li><i class="fas fa-check"></i> Diagnostic gratuit</li>
-                    <li><i class="fas fa-check"></i> Devis personnalisé</li>
-                    <li><i class="fas fa-check"></i> Prix négociable</li>
-                    <li><i class="fas fa-check"></i> Garantie incluse</li>
-                </ul>
-                <a href="#contact" class="btn btn-primary" style="width: 100%; justify-content: center;">
-                    <i class="fas fa-phone"></i> Appeler
-                </a>
+                <div class="pricing-header"><h3>Réparation Mobile</h3><div class="price" style="font-size: 1.5rem; color: var(--accent);">Sur Devis</div></div>
+                <ul class="pricing-features"><li><i class="fas fa-check"></i> Diagnostic gratuit</li><li><i class="fas fa-check"></i> Devis personnalisé</li><li><i class="fas fa-check"></i> Prix négociable</li><li><i class="fas fa-check"></i> Garantie incluse</li></ul>
+                <a href="#contact" class="btn btn-primary" style="width: 100%; justify-content: center;"><i class="fas fa-phone"></i> Appeler</a>
             </div>
             <div class="pricing-card featured fade-in">
-                <div class="pricing-header">
-                    <h3>Studio d'Enregistrement</h3>
-                    <div class="price">À partir de<br>25 000<span> FCFA</span></div>
-                </div>
-                <ul class="pricing-features">
-                    <li><i class="fas fa-check"></i> Séance de 2h minimum</li>
-                    <li><i class="fas fa-check"></i> Tarif dégressif</li>
-                    <li><i class="fas fa-check"></i> Forfaits sur mesure</li>
-                    <li><i class="fas fa-check"></i> Négociation possible</li>
-                </ul>
-                <a href="#contact" class="btn btn-purple" style="width: 100%; justify-content: center;">
-                    <i class="fas fa-calendar"></i> Réserver
-                </a>
+                <div class="pricing-header"><h3>Studio d'Enregistrement</h3><div class="price">À partir de<br>25 000<span> FCFA</span></div></div>
+                <ul class="pricing-features"><li><i class="fas fa-check"></i> Séance de 2h minimum</li><li><i class="fas fa-check"></i> Tarif dégressif</li><li><i class="fas fa-check"></i> Forfaits sur mesure</li><li><i class="fas fa-check"></i> Négociation possible</li></ul>
+                <a href="#contact" class="btn btn-purple" style="width: 100%; justify-content: center;"><i class="fas fa-calendar"></i> Réserver</a>
             </div>
             <div class="pricing-card fade-in">
-                <div class="pricing-header">
-                    <h3>Import Chine</h3>
-                    <div class="price" style="font-size: 1.5rem; color: var(--gold);">Sur Devis</div>
-                </div>
-                <ul class="pricing-features">
-                    <li><i class="fas fa-check"></i> Commission variable</li>
-                    <li><i class="fas fa-check"></i> Transport inclus</li>
-                    <li><i class="fas fa-check"></i> Tarifs négociables</li>
-                    <li><i class="fas fa-check"></i> Réduction volume</li>
-                </ul>
-                <a href="#import" class="btn btn-accent" style="width: 100%; justify-content: center;">
-                    <i class="fas fa-calculator"></i> Estimer
-                </a>
+                <div class="pricing-header"><h3>Import Chine</h3><div class="price" style="font-size: 1.5rem; color: var(--gold);">Sur Devis</div></div>
+                <ul class="pricing-features"><li><i class="fas fa-check"></i> Commission variable</li><li><i class="fas fa-check"></i> Transport inclus</li><li><i class="fas fa-check"></i> Tarifs négociables</li><li><i class="fas fa-check"></i> Réduction volume</li></ul>
+                <a href="#import" class="btn btn-accent" style="width: 100%; justify-content: center;"><i class="fas fa-calculator"></i> Estimer</a>
             </div>
         </div>
     </section>
-
+    <!-- SECTION: TÉLÉCHARGEMENT APP -->
+    <section class="app-download" id="app-download">
+        <div class="app-download-content">
+            <div class="app-download-text fade-in">
+                <h2>Téléchargez <span>CB@Techno App</span></h2>
+                <p>Accédez à tous nos services directement depuis votre smartphone. Commandez, suivez vos réparations, écoutez vos morceaux en studio et gérez vos importations en un clic.</p>
+                <div class="app-features">
+                    <div class="app-feature"><i class="fas fa-bell"></i><span>Notifications en temps réel</span></div>
+                    <div class="app-feature"><i class="fas fa-calendar-check"></i><span>Réservation studio en ligne</span></div>
+                    <div class="app-feature"><i class="fas fa-box"></i><span>Suivi des commandes Chine</span></div>
+                    <div class="app-feature"><i class="fas fa-headset"></i><span>Support client intégré</span></div>
+                    <div class="app-feature"><i class="fas fa-percent"></i><span>Promotions exclusives</span></div>
+                    <div class="app-feature"><i class="fas fa-clock"></i><span>Disponible 24h/24</span></div>
+                </div>
+                <div class="download-buttons">
+                    <a href="#" class="download-btn" onclick="showComingSoon(event)"><i class="fab fa-apple"></i><div class="download-btn-text"><small>Télécharger sur</small><strong>App Store</strong></div></a>
+                    <a href="#" class="download-btn" onclick="showComingSoon(event)"><i class="fab fa-google-play"></i><div class="download-btn-text"><small>Disponible sur</small><strong>Google Play</strong></div></a>
+                </div>
+                <div class="qr-section"><p><i class="fas fa-qrcode"></i> Scannez le QR code pour télécharger</p><div class="qr-placeholder"><i class="fas fa-qrcode"></i></div></div>
+            </div>
+            <div class="app-visual fade-in">
+                <div class="phone-mockup">
+                    <div class="phone-screen">
+                        <div class="phone-notch"></div>
+                        <div class="phone-logo"><i class="fas fa-mobile-alt"></i></div>
+                        <div class="phone-app-name">CB@Techno</div>
+                        <div class="phone-tagline">Votre partenaire tech, créatif et logistique</div>
+                        <div class="phone-features">
+                            <div class="phone-feature-item"><i class="fas fa-tools"></i><span>Réparation Mobile</span></div>
+                            <div class="phone-feature-item"><i class="fas fa-microphone"></i><span>Studio Pro</span></div>
+                            <div class="phone-feature-item"><i class="fas fa-plane"></i><span>Import Chine</span></div>
+                            <div class="phone-feature-item"><i class="fas fa-headset"></i><span>Support 24/7</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
     <section class="contact" id="contact">
         <div class="contact-container">
             <div class="contact-info fade-in">
                 <h3>Contactez-Nous</h3>
                 <p>Disponible pour tous vos projets : réparation, studio ou importation. Devis gratuit et négociation bienvenue !</p>
-                
                 <div class="contact-details">
-                    <div class="contact-item">
-                        <i class="fas fa-phone"></i>
-                        <span style="font-size: 1.3rem; color: var(--secondary); font-weight: 700;">+228 96 08 02 12</span>
-                    </div>
-                    <div class="contact-item">
-                        <i class="fas fa-envelope"></i>
-                        <span>contact@cbtechno.tg</span>
-                    </div>
-                    <div class="contact-item">
-                        <i class="fas fa-location-dot"></i>
-                        <span>Lomé, Togo (Intervention à domicile)</span>
-                    </div>
-                    <div class="contact-item">
-                        <i class="fas fa-clock"></i>
-                        <span>Lun-Sam : 8h00 - 20h00</span>
-                    </div>
+                    <div class="contact-item"><i class="fas fa-phone"></i><span style="font-size: 1.3rem; color: var(--secondary); font-weight: 700;">+228 96 08 02 12</span></div>
+                    <div class="contact-item"><i class="fas fa-envelope"></i><span>contact@cbtechno.tg</span></div>
+                    <div class="contact-item"><i class="fas fa-location-dot"></i><span>Lomé, Togo (Intervention à domicile)</span></div>
+                    <div class="contact-item"><i class="fas fa-clock"></i><span>Lun-Sam : 8h00 - 20h00</span></div>
                 </div>
-
                 <div class="cta-buttons" style="margin-top: 2rem;">
-                    <a href="tel:+22896080212" class="btn btn-primary">
-                        <i class="fas fa-phone"></i>
-                        Appeler Maintenant
-                    </a>
-                    <a href="https://wa.me/22896080212" class="btn btn-secondary" target="_blank">
-                        <i class="fab fa-whatsapp"></i>
-                        WhatsApp
-                    </a>
+                    <a href="tel:+22896080212" class="btn btn-primary"><i class="fas fa-phone"></i> Appeler Maintenant</a>
+                    <a href="https://wa.me/22896080212" class="btn btn-secondary" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a>
                 </div>
             </div>
-
             <div class="contact-form fade-in">
                 <form onsubmit="handleSubmit(event)">
-                    <div class="form-group">
-                        <label for="name">Nom complet</label>
-                        <input type="text" id="name" required placeholder="Votre nom">
-                    </div>
-                    <div class="form-group">
-                        <label for="service">Service concerné</label>
-                        <select id="service" style="width: 100%; padding: 0.8rem; border: 1px solid rgba(100, 255, 218, 0.3); background: rgba(0,0,0,0.3); color: var(--light); border-radius: 8px; font-family: 'Poppins', sans-serif;">
-                            <option value="reparation">Réparation Mobile (Sur Devis)</option>
-                            <option value="studio">Studio d'Enregistrement</option>
-                            <option value="import">Import Chine - Commander un produit</option>
-                            <option value="installation">Installation Tech (Sur Devis)</option>
-                            <option value="autre">Autre demande</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="phone">Téléphone</label>
-                        <input type="tel" id="phone" required placeholder="+228 XX XX XX XX">
-                    </div>
-                    <div class="form-group">
-                        <label for="message">Message - Décrivez votre besoin pour un devis personnalisé</label>
-                        <textarea id="message" placeholder="Ex: Je souhaite commander le produit #5 de la galerie Import Chine..." style="min-height: 120px;"></textarea>
-                    </div>
-                    <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center;">
-                        <i class="fas fa-paper-plane"></i>
-                        Demander un Devis Gratuit
-                    </button>
+                    <div class="form-group"><label for="name">Nom complet</label><input type="text" id="name" required placeholder="Votre nom"></div>
+                    <div class="form-group"><label for="service">Service concerné</label><select id="service" style="width: 100%; padding: 0.8rem; border: 1px solid rgba(100, 255, 218, 0.3); background: rgba(0,0,0,0.3); color: var(--light); border-radius: 8px; font-family: 'Poppins', sans-serif;"><option value="reparation">Réparation Mobile (Sur Devis)</option><option value="studio">Studio d'Enregistrement</option><option value="import">Import Chine - Commander un produit</option><option value="installation">Installation Tech (Sur Devis)</option><option value="autre">Autre demande</option></select></div>
+                    <div class="form-group"><label for="phone">Téléphone</label><input type="tel" id="phone" required placeholder="+228 XX XX XX XX"></div>
+                    <div class="form-group"><label for="message">Message - Décrivez votre besoin pour un devis personnalisé</label><textarea id="message" placeholder="Ex: Je souhaite commander le produit #5 de la galerie Import Chine..." style="min-height: 120px;"></textarea></div>
+                    <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center;"><i class="fas fa-paper-plane"></i> Demander un Devis Gratuit</button>
                 </form>
             </div>
         </div>
     </section>
-
+    <!-- SECTION: ADMIN PLUS (Réservée au propriétaire) -->
+    <section class="admin-plus" id="adminPlus">
+        <div class="admin-plus-header">
+            <h2><i class="fas fa-lock"></i> Espace Administrateur</h2>
+            <p>Gérez le contenu de votre site web - Ajoutez des photos et vidéos à chaque section</p>
+        </div>
+        <div class="admin-grid">
+            <div class="admin-card">
+                <div class="admin-card-header"><i class="fas fa-tools"></i><h3>Section Services Tech</h3></div>
+                <p>Ajoutez des photos et vidéos de vos réparations, installations et interventions techniques.</p>
+                <button class="admin-btn" onclick="openAdminModal('tech')"><i class="fas fa-plus"></i> Ajouter du contenu</button>
+            </div>
+            <div class="admin-card">
+                <div class="admin-card-header"><i class="fas fa-microphone"></i><h3>Section Studio</h3></div>
+                <p>Ajoutez des photos et vidéos de vos sessions d'enregistrement, équipements et artistes.</p>
+                <button class="admin-btn" onclick="openAdminModal('studio')"><i class="fas fa-plus"></i> Ajouter du contenu</button>
+            </div>
+            <div class="admin-card">
+                <div class="admin-card-header"><i class="fas fa-plane"></i><h3>Section Import Chine</h3></div>
+                <p>Ajoutez des photos de nouveaux produits disponibles à la commande depuis la Chine.</p>
+                <button class="admin-btn" onclick="openAdminModal('import')"><i class="fas fa-plus"></i> Ajouter du contenu</button>
+            </div>
+            <div class="admin-card">
+                <div class="admin-card-header"><i class="fas fa-calendar-star"></i><h3>Section Événements</h3></div>
+                <p>Ajoutez des photos et vidéos de vos événements, partenariats et activités spéciales.</p>
+                <button class="admin-btn" onclick="openAdminModal('events')"><i class="fas fa-plus"></i> Ajouter du contenu</button>
+            </div>
+            <div class="admin-card">
+                <div class="admin-card-header"><i class="fas fa-layer-group"></i><h3>Section Divers</h3></div>
+                <p>Ajoutez des photos et vidéos diverses : équipe, formations, activités quotidiennes.</p>
+                <button class="admin-btn" onclick="openAdminModal('divers')"><i class="fas fa-plus"></i> Ajouter du contenu</button>
+            </div>
+            <div class="admin-card">
+                <div class="admin-card-header"><i class="fas fa-mobile-alt"></i><h3>Section App Mobile</h3></div>
+                <p>Ajoutez des captures d'écran et vidéos de démonstration de l'application mobile.</p>
+                <button class="admin-btn" onclick="openAdminModal('app')"><i class="fas fa-plus"></i> Ajouter du contenu</button>
+            </div>
+        </div>
+    </section>
     <footer>
         <div class="footer-content">
             <div class="social-links">
@@ -1671,143 +586,113 @@
                 <a href="#" target="_blank"><i class="fab fa-tiktok"></i></a>
                 <a href="#" target="_blank"><i class="fab fa-youtube"></i></a>
             </div>
-            <p class="footer-text">
-                <strong style="color: var(--secondary);">CB@Techno</strong> - Votre partenaire tech, créatif et logistique à Lomé<br>
-                📞 <strong style="color: var(--secondary);">+228 96 08 02 12</strong> | 
-                📧 contact@cbtechno.tg<br>
-                © 2024 Tous droits réservés | Prix sur devis et négociation bienvenue
-            </p>
+            <p class="footer-text"><strong style="color: var(--secondary);">CB@Techno</strong> - Votre partenaire tech, créatif et logistique à Lomé<br>📞 <strong style="color: var(--secondary);">+228 96 08 02 12</strong> | 📧 contact@cbtechno.tg<br>© 2024 Tous droits réservés | Prix sur devis et négociation bienvenue</p>
         </div>
     </footer>
+    <button class="add-content-btn" onclick="openModal()" title="Ajouter du contenu"><i class="fas fa-plus"></i></button>
+    <button class="admin-login-btn" onclick="openPasswordModal()" title="Espace Admin"><i class="fas fa-lock"></i></button>
 
-    <button class="add-content-btn" onclick="openModal()" title="Ajouter du contenu">
-        <i class="fas fa-plus"></i>
-    </button>
-
+    <!-- Modal Ajout Contenu Standard -->
     <div class="modal" id="addModal">
         <div class="modal-content">
-            <div class="modal-header">
-                <h3><i class="fas fa-plus-circle"></i> Ajouter à la Galerie</h3>
-                <button class="close-modal" onclick="closeModal()">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
+            <div class="modal-header"><h3><i class="fas fa-plus-circle"></i> Ajouter à la Galerie</h3><button class="close-modal" onclick="closeModal()"><i class="fas fa-times"></i></button></div>
             <form onsubmit="handleAddContent(event)">
-                <div class="form-group">
-                    <label>Galerie cible</label>
-                    <select id="galleryTarget" required>
-                        <option value="tech">Réparations Tech</option>
-                        <option value="studio">Studio d'Enregistrement</option>
-                        <option value="import">Import Chine</option>
-                        <option value="events">Événements</option>
-                        <option value="divers">Activités Diverses</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label>Type de média</label>
-                    <select id="mediaType" required onchange="toggleMediaInput()">
-                        <option value="image">Image (URL)</option>
-                        <option value="video">Vidéo (URL)</option>
-                        <option value="local">Upload Local (simulation)</option>
-                    </select>
-                </div>
-                <div class="form-group" id="urlInput">
-                    <label>URL du média</label>
-                    <input type="url" id="mediaUrl" placeholder="https://...">
-                </div>
-                <div class="form-group" id="posterInput" style="display: none;">
-                    <label>URL de la miniature (pour vidéo)</label>
-                    <input type="url" id="posterUrl" placeholder="https://... (image)">
-                </div>
-                <div class="form-group">
-                    <label>Titre</label>
-                    <input type="text" id="mediaTitle" required placeholder="Titre de l'élément">
-                </div>
-                <div class="form-group">
-                    <label>Description</label>
-                    <input type="text" id="mediaDesc" placeholder="Description courte">
-                </div>
-                <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center;">
-                    <i class="fas fa-check"></i> Ajouter à la Galerie
-                </button>
+                <div class="form-group"><label>Galerie cible</label><select id="galleryTarget" required><option value="tech">Réparations Tech</option><option value="studio">Studio d'Enregistrement</option><option value="import">Import Chine</option><option value="events">Événements</option><option value="divers">Activités Diverses</option></select></div>
+                <div class="form-group"><label>Type de média</label><select id="mediaType" required onchange="toggleMediaInput()"><option value="image">Image (URL)</option><option value="video">Vidéo (URL)</option><option value="local">Upload Local (simulation)</option></select></div>
+                <div class="form-group" id="urlInput"><label>URL du média</label><input type="url" id="mediaUrl" placeholder="https://..."></div>
+                <div class="form-group" id="posterInput" style="display: none;"><label>URL de la miniature (pour vidéo)</label><input type="url" id="posterUrl" placeholder="https://... (image)"></div>
+                <div class="form-group"><label>Titre</label><input type="text" id="mediaTitle" required placeholder="Titre de l'élément"></div>
+                <div class="form-group"><label>Description</label><input type="text" id="mediaDesc" placeholder="Description courte"></div>
+                <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center;"><i class="fas fa-check"></i> Ajouter à la Galerie</button>
             </form>
         </div>
     </div>
-
+    <!-- Modal Admin Password -->
+    <div class="modal password-modal" id="passwordModal">
+        <div class="modal-content">
+            <div class="modal-header" style="justify-content: center;"><h3><i class="fas fa-lock"></i> Accès Administrateur</h3></div>
+            <p style="margin-bottom: 1.5rem; opacity: 0.8;">Entrez le code d'accès pour gérer le contenu du site</p>
+            <input type="password" id="adminPassword" class="password-input" placeholder="••••••" maxlength="6">
+            <button onclick="checkPassword()" class="btn btn-accent" style="width: 100%; justify-content: center;"><i class="fas fa-unlock"></i> Accéder</button>
+            <p class="password-hint"><i class="fas fa-info-circle"></i> Code par défaut : 123456</p>
+            <button onclick="closePasswordModal()" class="btn btn-secondary" style="width: 100%; justify-content: center; margin-top: 1rem;"><i class="fas fa-times"></i> Annuler</button>
+        </div>
+    </div>
+    <!-- Modal Admin Section Selector -->
+    <div class="modal" id="adminSectionModal">
+        <div class="modal-content admin-modal-content">
+            <div class="modal-header"><h3><i class="fas fa-plus-circle"></i> Ajouter du Contenu</h3><button class="close-modal" onclick="closeAdminSectionModal()"><i class="fas fa-times"></i></button></div>
+            <p style="margin-bottom: 1rem; opacity: 0.8;">Sélectionnez la section où ajouter le contenu :</p>
+            <div class="section-selector">
+                <div class="section-option" onclick="selectSection('tech')"><i class="fas fa-tools"></i><span>Services Tech</span></div>
+                <div class="section-option" onclick="selectSection('studio')"><i class="fas fa-microphone"></i><span>Studio</span></div>
+                <div class="section-option" onclick="selectSection('import')"><i class="fas fa-plane"></i><span>Import Chine</span></div>
+                <div class="section-option" onclick="selectSection('events')"><i class="fas fa-calendar-star"></i><span>Événements</span></div>
+                <div class="section-option" onclick="selectSection('divers')"><i class="fas fa-layer-group"></i><span>Divers</span></div>
+                <div class="section-option" onclick="selectSection('app')"><i class="fas fa-mobile-alt"></i><span>App Mobile</span></div>
+            </div>
+            <div id="adminAddContentForm" style="display: none;">
+                <div class="form-group"><label>Type de média</label><select id="adminMediaType" onchange="toggleAdminMediaInput()"><option value="image">Image (URL)</option><option value="video">Vidéo (URL)</option></select></div>
+                <div class="form-group" id="adminUrlInput"><label>URL du média</label><input type="url" id="adminMediaUrl" placeholder="https://..."></div>
+                <div class="form-group" id="adminPosterInput" style="display: none;"><label>URL de la miniature (pour vidéo)</label><input type="url" id="adminPosterUrl" placeholder="https://... (image)"></div>
+                <div class="form-group"><label>Titre</label><input type="text" id="adminMediaTitle" placeholder="Titre de l'élément"></div>
+                <div class="form-group"><label>Description</label><input type="text" id="adminMediaDesc" placeholder="Description courte"></div>
+                <button onclick="addAdminContent()" class="btn btn-accent" style="width: 100%; justify-content: center;"><i class="fas fa-check"></i> Ajouter le Contenu</button>
+            </div>
+        </div>
+    </div>
     <div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
-        <button class="lightbox-close" onclick="closeLightbox(event)">
-            <i class="fas fa-times"></i>
-        </button>
-        <button class="lightbox-nav lightbox-prev" onclick="changeImage(-1)">
-            <i class="fas fa-chevron-left"></i>
-        </button>
+        <button class="lightbox-close" onclick="closeLightbox(event)"><i class="fas fa-times"></i></button>
+        <button class="lightbox-nav lightbox-prev" onclick="changeImage(-1)"><i class="fas fa-chevron-left"></i></button>
         <div class="lightbox-content" id="lightbox-content"></div>
         <div class="lightbox-counter" id="lightbox-counter">1 / 10</div>
-        <button class="lightbox-nav lightbox-next" onclick="changeImage(1)">
-            <i class="fas fa-chevron-right"></i>
-        </button>
+        <button class="lightbox-nav lightbox-next" onclick="changeImage(1)"><i class="fas fa-chevron-right"></i></button>
     </div>
-
     <script>
-        // SCRIPT SOURCING PHOTO (NOUVEAUTÉ)
         function sendSourcingWhatsApp() {
             const productName = document.getElementById('sourcingName').value;
             const quantity = document.getElementById('sourcingQty').value || "Non précisée";
             const budget = document.getElementById('sourcingBudget').value || "À discuter";
-
-            if (!productName) {
-                alert("Veuillez entrer le nom du produit que vous cherchez.");
-                return;
-            }
-
+            if (!productName) { alert("Veuillez entrer le nom du produit que vous cherchez."); return; }
             const phoneNumber = "22896080212";
-            const message = `*DEMANDE DE SOURCING PHOTO*\n` +
-                          `------------------------------\n` +
-                          `🔎 *Produit :* ${productName}\n` +
-                          `🔢 *Quantité :* ${quantity}\n` +
-                          `💰 *Budget :* ${budget}\n` +
-                          `------------------------------\n` +
-                          `Bonjour CB@Techno, merci de m'envoyer les photos des modèles disponibles pour cet article.`;
-
+            const message = `*DEMANDE DE SOURCING PHOTO*\n------------------------------\n🔎 *Produit :* ${productName}\n🔢 *Quantité :* ${quantity}\n💰 *Budget :* ${budget}\n------------------------------\nBonjour CB@Techno, merci de m'envoyer les photos des modèles disponibles pour cet article.`;
             window.open(`https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`, '_blank');
         }
-
-        // --- RESTANT DU SCRIPT ORIGINAL (INTACT) ---
         const galleries = {
             tech: [
-                { type: 'image', src: '/mnt/kimi/upload/1001852100.png', title: 'CB@Techno - Diagnostic & Réparation', desc: 'Service à domicile - Installation & Vente d\'accessoires électroniques' },
+                { type: 'image', src: 'https://images.unsplash.com/photo-1591799264318-7e6ef8ddb7ea?w=800', title: 'CB@Techno - Diagnostic & Réparation', desc: "Service à domicile - Installation & Vente d'accessoires électroniques" },
                 { type: 'image', src: 'https://images.unsplash.com/photo-1591799264318-7e6ef8ddb7ea?w=800', title: 'Remplacement Écran iPhone', desc: 'Réparation professionnelle' },
                 { type: 'video', src: 'https://assets.mixkit.co/videos/preview/mixkit-hands-of-a-man-typing-on-a-cell-phone-4812-large.mp4', poster: 'https://images.unsplash.com/photo-1588515603068-48e855d27f70?w=800', title: 'Diagnostic Complet', desc: 'Processus de diagnostic' },
                 { type: 'image', src: 'https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=800', title: 'Changement Batterie', desc: 'Batterie originale' },
                 { type: 'image', src: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800', title: 'Installation Parabolique', desc: 'Parabole HD' }
             ],
             studio: [
-                { type: 'image', src: 'https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?w=800', title: 'Studio CB@Techno', desc: 'Notre espace d\'enregistrement' },
+                { type: 'image', src: 'https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?w=800', title: 'Studio CB@Techno', desc: "Notre espace d'enregistrement" },
                 { type: 'video', src: 'https://assets.mixkit.co/videos/preview/mixkit-man-singing-in-a-recording-studio-43721-large.mp4', poster: 'https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?w=800', title: 'Session Enregistrement', desc: 'Artiste au travail' },
                 { type: 'image', src: 'https://images.unsplash.com/photo-1598653222000-6b7b7a552625?w=800', title: 'Équipement Pro', desc: 'Micros et interfaces' },
                 { type: 'image', src: 'https://images.unsplash.com/photo-1519508234439-4f23643125c1?w=800', title: 'Mixage', desc: 'Post-production audio' }
             ],
             import: [
-                { type: 'image', src: '/mnt/kimi/upload/1001958106.jpg', title: 'Kit Microphone Studio Pro', desc: 'Micro à condensateur + carte son + accessoires - Commande disponible' },
-                { type: 'image', src: '/mnt/kimi/upload/1001958062.jpg', title: 'Kit Vlogging Complet', desc: 'Trépied + Micro sans fil + LED + Télécommande - Pour créateurs de contenu' },
-                { type: 'image', src: '/mnt/kimi/upload/1001958029.jpg', title: 'Masseur de Pieds EMS', desc: 'Stimulation électrique musculaire - Relaxation et circulation' },
-                { type: 'image', src: '/mnt/kimi/upload/1001957584.jpg', title: 'Power Bank 50000mAh', desc: 'Chargeur portable haute capacité avec lampe LED - Charge rapide' },
-                { type: 'image', src: '/mnt/kimi/upload/1001956807.png', title: 'Réfrigérateur Compact', desc: 'Double porte congélateur - Idéal pour studio ou chambre' },
-                { type: 'image', src: '/mnt/kimi/upload/1001957684.jpg', title: 'Drone 4K Pliable', desc: 'Caméra HD + Télécommande + 2 batteries - Livraison Lomé' },
-                { type: 'image', src: '/mnt/kimi/upload/1001958176.jpg', title: 'Micros Sans Fil Cravate', desc: '2 émetteurs + boîtier de charge - Pour interviews et vidéos' },
-                { type: 'image', src: '/mnt/kimi/upload/1001958211.jpg', title: 'Blender Silver Crest 4500W', desc: 'Mixeur professionnel avec accessoires - Smoothies et poudre' },
-                { type: 'image', src: '/mnt/kimi/upload/1001958216.jpg', title: 'Ensemble Pyjama Femme', desc: 'Débardeur + pantalon motif cœur - Confortable et stylé' },
-                { type: 'image', src: '/mnt/kimi/upload/1001958214.jpg', title: 'Four Électrique 3-en-1', desc: 'Four + Cafetière + Plaque chauffante - Petit déjeuner complet' },
-                { type: 'image', src: '/mnt/kimi/upload/1001958217.jpg', title: 'Bouilloire Pliable Voyage', desc: 'Silicone alimentaire - Idéal pour voyages et camping' },
-                { type: 'image', src: '/mnt/kimi/upload/1001958234.jpg', title: 'Hachoir Légumes 12-en-1', desc: 'Coupe-légumes multifonction avec récipient - Cuisine facile' },
-                { type: 'image', src: '/mnt/kimi/upload/1001950589.jpg', title: 'Ruban LED RGB 5M', desc: 'Bande lumineuse multicolore avec télécommande - Décoration maison' },
-                { type: 'image', src: '/mnt/kimi/upload/1001958243.jpg', title: 'Baskets Blanches Unisexe', desc: 'Chaussures casual style classique - Toutes tailles disponibles' },
-                { type: 'image', src: '/mnt/kimi/upload/1001958247.jpg', title: 'Mini Four Silver Crest 13L', desc: 'Four toaster compact - Cuisson rapide et économique' },
-                { type: 'image', src: '/mnt/kimi/upload/1001958248.jpg', title: 'Chaussures Habillées Homme', desc: 'Cuir verni élégant bordeaux - Cérémonies et bureau' },
-                { type: 'image', src: '/mnt/kimi/upload/1001958251.jpg', title: 'Enceinte Bluetooth Portable', desc: 'Bass puissantes + Étanche - Extérieur et fêtes' },
-                { type: 'image', src: '/mnt/kimi/upload/1001946885.jpg', title: 'Montre Connectée Luxe', desc: 'Smartwatch dorée avec bracelet maille - Notifications et santé' },
-                { type: 'image', src: '/mnt/kimi/upload/1001958260.jpg', title: 'Plaque Électrique 1000W', desc: 'Réchaud portable RAF - Cuisson rapide partout' },
-                { type: 'image', src: '/mnt/kimi/upload/1001946875.jpg', title: 'Ventilateur Brumisateur', desc: 'Refroidisseur d\'air + Humidificateur + LED - Chaleur estivale' }
+                { type: 'image', src: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=800', title: 'Casque Audio Premium', desc: 'Haute qualité sonore - Commande disponible' },
+                { type: 'image', src: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=800', title: 'Montre Connectée', desc: 'Smartwatch avec suivi santé - Pour créateurs de contenu' },
+                { type: 'image', src: 'https://images.unsplash.com/photo-1546868871-7041f2a55e12?w=800', title: 'Montre Intelligente', desc: 'Design élégant - Notifications et fitness' },
+                { type: 'image', src: 'https://images.unsplash.com/photo-1585565804112-f201f68c48b4?w=800', title: 'Power Bank 20000mAh', desc: 'Chargeur portable haute capacité - Charge rapide' },
+                { type: 'image', src: 'https://images.unsplash.com/photo-1574269909862-7e1d70bb8078?w=800', title: 'Mini Réfrigérateur', desc: 'Compact et silencieux - Idéal pour studio ou chambre' },
+                { type: 'image', src: 'https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=800', title: 'Drone 4K', desc: 'Caméra HD + Télécommande - Livraison Lomé' },
+                { type: 'image', src: 'https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=800', title: 'Écouteurs Sans Fil', desc: 'Bluetooth 5.0 - Autonomie longue durée' },
+                { type: 'image', src: 'https://images.unsplash.com/photo-1570222094114-28a9d8896b74?w=800', title: 'Blender Pro', desc: 'Mixeur professionnel - Smoothies et poudre' },
+                { type: 'image', src: 'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=800', title: 'Vêtements Mode', desc: 'Collection tendance - Confortable et stylé' },
+                { type: 'image', src: 'https://images.unsplash.com/photo-1556910103-1c02745aae4d?w=800', title: 'Four Électrique', desc: 'Multifonction - Petit déjeuner complet' },
+                { type: 'image', src: 'https://images.unsplash.com/photo-1544233726-9f1d2b27be8b?w=800', title: 'Bouilloire Électrique', desc: 'Rapide et sécurisée - Idéal pour voyages' },
+                { type: 'image', src: 'https://images.unsplash.com/photo-1590794056226-79ef3a8147e1?w=800', title: 'Hachoir Électrique', desc: 'Multifonction - Cuisine facile' },
+                { type: 'image', src: 'https://images.unsplash.com/photo-1550989460-0adf9ea622e2?w=800', title: 'Ruban LED RGB', desc: 'Bande lumineuse multicolore - Décoration maison' },
+                { type: 'image', src: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=800', title: 'Baskets Sport', desc: 'Chaussures casual style classique - Toutes tailles' },
+                { type: 'image', src: 'https://images.unsplash.com/photo-1585659722983-3a675dabf23d?w=800', title: 'Mini Four', desc: 'Four toaster compact - Cuisson rapide' },
+                { type: 'image', src: 'https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?w=800', title: 'Chaussures Élégantes', desc: 'Cuir verni élégant - Cérémonies et bureau' },
+                { type: 'image', src: 'https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?w=800', title: 'Enceinte Bluetooth', desc: 'Bass puissantes - Extérieur et fêtes' },
+                { type: 'image', src: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=800', title: 'Montre Connectée Luxe', desc: 'Smartwatch dorée - Notifications et santé' },
+                { type: 'image', src: 'https://images.unsplash.com/photo-1584269600519-112d071b35e6?w=800', title: 'Plaque Électrique', desc: 'Réchaud portable - Cuisson rapide partout' },
+                { type: 'image', src: 'https://images.unsplash.com/photo-1565128939503-1c29d68f1a34?w=800', title: 'Ventilateur Portable', desc: "Refroidisseur d'air - Chaleur estivale" }
             ],
             events: [
                 { type: 'image', src: 'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=800', title: 'Événement Tech', desc: 'Démonstration réparation' },
@@ -1819,18 +704,8 @@
                 { type: 'image', src: 'https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=800', title: 'Formation', desc: 'Apprentissage réparation' }
             ]
         };
-
-        let currentGallery = 'tech';
-        let currentIndex = 0;
-
-        function init() {
-            renderGallery('tech');
-            renderGallery('studio');
-            renderGallery('import');
-            renderGallery('events');
-            renderGallery('divers');
-        }
-
+        let currentGallery = 'tech', currentIndex = 0, selectedAdminSection = '';
+        function init() { renderGallery('tech'); renderGallery('studio'); renderGallery('import'); renderGallery('events'); renderGallery('divers'); }
         function renderGallery(galleryName) {
             const grid = document.getElementById(`grid-${galleryName}`);
             if (!grid) return;
@@ -1850,106 +725,69 @@
                 grid.appendChild(div);
             });
         }
-
         function switchGallery(galleryName) {
             currentGallery = galleryName;
-            document.querySelectorAll('.gallery-tab').forEach((tab, index) => {
-                const tabs = ['tech', 'studio', 'import', 'events', 'divers'];
-                tab.classList.toggle('active', tabs[index] === galleryName);
-            });
+            document.querySelectorAll('.gallery-tab').forEach((tab, index) => { const tabs = ['tech', 'studio', 'import', 'events', 'divers']; tab.classList.toggle('active', tabs[index] === galleryName); });
             document.querySelectorAll('.gallery-section').forEach(section => section.classList.remove('active'));
             document.getElementById(`gallery-${galleryName}`).classList.add('active');
             document.getElementById('galerie').scrollIntoView({ behavior: 'smooth' });
         }
-
-        function openLightbox(galleryName, index) {
-            currentGallery = galleryName;
-            currentIndex = index;
-            updateLightbox();
-            document.getElementById('lightbox').classList.add('active');
-            document.body.style.overflow = 'hidden';
-        }
-
+        function openLightbox(galleryName, index) { currentGallery = galleryName; currentIndex = index; updateLightbox(); document.getElementById('lightbox').classList.add('active'); document.body.style.overflow = 'hidden'; }
         function updateLightbox() {
-            const items = galleries[currentGallery];
-            const item = items[currentIndex];
-            const content = document.getElementById('lightbox-content');
-            const counter = document.getElementById('lightbox-counter');
+            const items = galleries[currentGallery], item = items[currentIndex], content = document.getElementById('lightbox-content'), counter = document.getElementById('lightbox-counter');
             content.innerHTML = '';
-            if (item.type === 'video') {
-                const v = document.createElement('video'); v.src = item.src; v.controls = v.autoplay = true; v.style.maxHeight = '80vh'; content.appendChild(v);
-            } else {
-                const img = document.createElement('img'); img.src = item.src; img.alt = item.title; content.appendChild(img);
-            }
+            if (item.type === 'video') { const v = document.createElement('video'); v.src = item.src; v.controls = v.autoplay = true; v.style.maxHeight = '80vh'; content.appendChild(v); }
+            else { const img = document.createElement('img'); img.src = item.src; img.alt = item.title; content.appendChild(img); }
             counter.textContent = `${currentIndex + 1} / ${items.length}`;
         }
-
-        function changeImage(direction) {
-            const items = galleries[currentGallery];
-            currentIndex += direction;
-            if (currentIndex < 0) currentIndex = items.length - 1;
-            if (currentIndex >= items.length) currentIndex = 0;
-            updateLightbox();
-        }
-
-        function closeLightbox(event) {
-            if (event.target.id === 'lightbox' || event.target.closest('.lightbox-close')) {
-                document.getElementById('lightbox').classList.remove('active');
-                document.body.style.overflow = 'auto';
-                document.querySelectorAll('#lightbox video').forEach(v => v.pause());
-            }
-        }
-
+        function changeImage(direction) { const items = galleries[currentGallery]; currentIndex += direction; if (currentIndex < 0) currentIndex = items.length - 1; if (currentIndex >= items.length) currentIndex = 0; updateLightbox(); }
+        function closeLightbox(event) { if (event.target.id === 'lightbox' || event.target.closest('.lightbox-close')) { document.getElementById('lightbox').classList.remove('active'); document.body.style.overflow = 'auto'; document.querySelectorAll('#lightbox video').forEach(v => v.pause()); } }
         function openModal() { document.getElementById('addModal').classList.add('active'); document.getElementById('adminBadge').classList.add('active'); }
         function closeModal() { document.getElementById('addModal').classList.remove('active'); }
         function toggleMediaInput() { const t = document.getElementById('mediaType').value; document.getElementById('posterInput').style.display = t === 'video' ? 'block' : 'none'; }
-
         function handleAddContent(e) {
             e.preventDefault();
             const g = document.getElementById('galleryTarget').value;
-            const newItem = {
-                type: document.getElementById('mediaType').value === 'local' ? 'image' : document.getElementById('mediaType').value,
-                src: document.getElementById('mediaUrl').value,
-                title: document.getElementById('mediaTitle').value,
-                desc: document.getElementById('mediaDesc').value
-            };
+            const newItem = { type: document.getElementById('mediaType').value === 'local' ? 'image' : document.getElementById('mediaType').value, src: document.getElementById('mediaUrl').value, title: document.getElementById('mediaTitle').value, desc: document.getElementById('mediaDesc').value };
             if (newItem.type === 'video' && document.getElementById('posterUrl').value) newItem.poster = document.getElementById('posterUrl').value;
-            galleries[g].push(newItem);
-            renderGallery(g);
-            switchGallery(g);
-            closeModal(); e.target.reset();
+            galleries[g].push(newItem); renderGallery(g); switchGallery(g); closeModal(); e.target.reset();
             alert(`✅ "${newItem.title}" ajouté !`);
         }
-
         function calculateImport() {
-            const price = parseFloat(document.getElementById('productPrice').value) || 0;
-            const weight = parseFloat(document.getElementById('productWeight').value) || 0;
-            const mode = document.getElementById('transportMode').value;
-            const commission = price * 0.15;
-            const transport = weight * (mode === 'sea' ? 8 : 25);
-            const douane = price * 0.20;
-            const totalFCFA = (price + commission + transport + douane) * 605;
+            const price = parseFloat(document.getElementById('productPrice').value) || 0, weight = parseFloat(document.getElementById('productWeight').value) || 0, mode = document.getElementById('transportMode').value;
+            const commission = price * 0.15, transport = weight * (mode === 'sea' ? 8 : 25), douane = price * 0.20, totalFCFA = (price + commission + transport + douane) * 605;
             document.getElementById('calcResult').innerHTML = `Total estimé: ${totalFCFA.toLocaleString()} FCFA`;
         }
-
-        function handleSubmit(e) {
-            e.preventDefault();
-            const btn = e.target.querySelector('button[type="submit"]');
-            btn.innerHTML = 'Envoi...';
-            setTimeout(() => {
-                btn.innerHTML = 'Demande envoyée !';
-                e.target.reset();
-                setTimeout(() => btn.innerHTML = 'Demander un Devis Gratuit', 3000);
-            }, 1500);
-        }
-
+        function handleSubmit(e) { e.preventDefault(); const btn = e.target.querySelector('button[type="submit"]'); btn.innerHTML = 'Envoi...'; setTimeout(() => { btn.innerHTML = 'Demande envoyée !'; e.target.reset(); setTimeout(() => btn.innerHTML = 'Demander un Devis Gratuit', 3000); }, 1500); }
         function toggleMenu() { document.getElementById('navLinks').classList.toggle('active'); }
-
-        const obs = new IntersectionObserver((es) => {
-            es.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-        }, { threshold: 0.1 });
+        const obs = new IntersectionObserver((es) => { es.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }); }, { threshold: 0.1 });
         document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
-
+        // FONCTIONS ADMIN
+        function openPasswordModal() { document.getElementById('passwordModal').classList.add('active'); document.getElementById('adminPassword').value = ''; document.getElementById('adminPassword').focus(); }
+        function closePasswordModal() { document.getElementById('passwordModal').classList.remove('active'); }
+        function checkPassword() {
+            const password = document.getElementById('adminPassword').value;
+            if (password === '123456') {
+                closePasswordModal(); document.getElementById('adminPlus').classList.add('active'); document.getElementById('adminBadge').classList.add('active');
+                document.getElementById('adminPlus').scrollIntoView({ behavior: 'smooth' }); alert('✅ Accès administrateur accordé ! Vous pouvez maintenant gérer le contenu du site.');
+            } else { alert('❌ Code incorrect. Veuillez réessayer.'); document.getElementById('adminPassword').value = ''; document.getElementById('adminPassword').focus(); }
+        }
+        function openAdminModal(section) { selectedAdminSection = section; document.getElementById('adminSectionModal').classList.add('active'); document.getElementById('adminAddContentForm').style.display = 'none'; document.querySelectorAll('.section-option').forEach(opt => opt.classList.remove('selected')); }
+        function closeAdminSectionModal() { document.getElementById('adminSectionModal').classList.remove('active'); selectedAdminSection = ''; }
+        function selectSection(section) { selectedAdminSection = section; document.querySelectorAll('.section-option').forEach(opt => opt.classList.remove('selected')); event.currentTarget.classList.add('selected'); document.getElementById('adminAddContentForm').style.display = 'block'; }
+        function toggleAdminMediaInput() { const type = document.getElementById('adminMediaType').value; document.getElementById('adminPosterInput').style.display = type === 'video' ? 'block' : 'none'; }
+        function addAdminContent() {
+            const type = document.getElementById('adminMediaType').value, src = document.getElementById('adminMediaUrl').value, title = document.getElementById('adminMediaTitle').value, desc = document.getElementById('adminMediaDesc').value, poster = document.getElementById('adminPosterUrl').value;
+            if (!src || !title) { alert("Veuillez remplir au moins l'URL et le titre."); return; }
+            const newItem = { type, src, title, desc }; if (type === 'video' && poster) newItem.poster = poster;
+            if (galleries[selectedAdminSection]) { galleries[selectedAdminSection].push(newItem); renderGallery(selectedAdminSection); alert(`✅ "${title}" ajouté à la section ${selectedAdminSection.toUpperCase()} !`); }
+            else { alert(`✅ "${title}" sera ajouté à la section App Mobile (à configurer)`); }
+            document.getElementById('adminMediaUrl').value = ''; document.getElementById('adminMediaTitle').value = ''; document.getElementById('adminMediaDesc').value = ''; document.getElementById('adminPosterUrl').value = '';
+            document.getElementById('adminAddContentForm').style.display = 'none'; document.querySelectorAll('.section-option').forEach(opt => opt.classList.remove('selected')); closeAdminSectionModal();
+        }
+        function showComingSoon(event) { event.preventDefault(); alert("📱 L'application CB@Techno sera bientôt disponible sur l'App Store et Google Play !\n\nRestez connectés pour la sortie officielle."); }
+        document.getElementById('adminPassword')?.addEventListener('keypress', function(e) { if (e.key === 'Enter') checkPassword(); });
         init();
     </script>
 </body>
+</html>
