@@ -10,7 +10,7 @@ window.currentGallery  = "tech";
 window.lightboxItems   = [];
 window.lightboxIndex   = 0;
 
-const ADMIN_PASSWORD   = "CBtechno2024!"; // ← Changez ce mot de passe !
+const ADMIN_PASSWORD   = "Boss1234@"; // ← Changez ce mot de passe !
 const WHATSAPP_NUMBER  = "22890000000";   // ← Votre numéro WhatsApp (sans +)
 
 // ─── 1. NAVIGATION ───────────────────────────────────────────
