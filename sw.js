@@ -41,11 +41,9 @@ const CACHE_CDN = [
 // ─── INSTALLATION ────────────────────────────────────────────
 self.addEventListener('install', (event) => {
   console.log('[SW] Installation CB@Techno v3');
-
   event.waitUntil(
     caches.open(CACHE_STATIC)
       .then((cache) => {
-        // addAll avec gestion d'erreur individuelle
         return Promise.allSettled(
           SHELL_URLS.map(url =>
             cache.add(url).catch(err =>
@@ -56,7 +54,7 @@ self.addEventListener('install', (event) => {
       })
       .then(() => {
         console.log('[SW] Shell applicatif mis en cache');
-        return self.skipWaiting(); // Active immédiatement sans attendre
+        self.skipWaiting(); // Active immédiatement sans attendre
       })
   );
 });
@@ -64,7 +62,6 @@ self.addEventListener('install', (event) => {
 // ─── ACTIVATION ──────────────────────────────────────────────
 self.addEventListener('activate', (event) => {
   console.log('[SW] Activation — nettoyage anciens caches');
-
   event.waitUntil(
     caches.keys()
       .then((cacheNames) => {
@@ -80,13 +77,17 @@ self.addEventListener('activate', (event) => {
       })
       .then(() => self.clients.claim()) // Prend le contrôle de tous les onglets
       .then(() => {
-        // Notifie tous les onglets ouverts que le SW est à jour
+        // Notifie tous les onglets ouverts que le SW est à jour et leur demande de recharger
         return self.clients.matchAll({ type: 'window' });
       })
       .then((clients) => {
-        clients.forEach(client =>
-          client.postMessage({ type: 'SW_ACTIVATED', version: CACHE_NAME })
-        );
+        clients.forEach(client => {
+          client.postMessage({ type: 'SW_UPDATED', version: CACHE_NAME });
+          // Forcer le rechargement pour les mises à jour immédiates
+          if (client.visibilityState === 'visible') {
+            client.reload();
+          }
+        });
       })
   );
 });
@@ -96,48 +97,38 @@ self.addEventListener('fetch', (event) => {
   const { request } = event;
   const url = new URL(request.url);
 
-  // 1. Ignore les requêtes non-GET
   if (request.method !== 'GET') return;
 
-  // 2. ⚠️  NE JAMAIS mettre en cache Firebase/Firestore
-  //    (la synchro temps réel doit toujours aller sur le réseau)
   if (NEVER_CACHE.some(domain => url.hostname.includes(domain))) {
     event.respondWith(fetch(request));
     return;
   }
 
-  // 3. CDN statiques → Cache first (rapide + fallback réseau)
   if (CACHE_CDN.some(domain => url.hostname.includes(domain))) {
     event.respondWith(cacheFirst(request, CACHE_STATIC));
     return;
   }
 
-  // 4. Images Firebase Storage → Cache avec expiration
   if (url.hostname.includes('firebasestorage.googleapis.com')) {
-    event.respondWith(cacheFirstWithExpiry(request, CACHE_IMAGES, 7 * 24 * 60 * 60)); // 7 jours
+    event.respondWith(cacheFirstWithExpiry(request, CACHE_IMAGES, 7 * 24 * 60 * 60));
     return;
   }
 
-  // 5. Fichiers statiques locaux → Cache first
   if (isStaticAsset(url)) {
     event.respondWith(cacheFirst(request, CACHE_STATIC));
     return;
   }
 
-  // 6. Pages HTML → Network first (toujours la version fraîche)
-  //    avec fallback sur le cache si hors ligne
   if (request.headers.get('accept')?.includes('text/html')) {
     event.respondWith(networkFirstWithFallback(request));
     return;
   }
 
-  // 7. Tout le reste → Network first
   event.respondWith(networkFirstWithFallback(request));
 });
 
 // ─── STRATÉGIES DE CACHE ─────────────────────────────────────
 
-/** Cache First : lit le cache, va sur le réseau si absent */
 async function cacheFirst(request, cacheName) {
   const cached = await caches.match(request);
   if (cached) return cached;
@@ -154,7 +145,6 @@ async function cacheFirst(request, cacheName) {
   }
 }
 
-/** Network First : essaie le réseau, fallback cache si hors ligne */
 async function networkFirstWithFallback(request) {
   try {
     const response = await fetch(request);
@@ -167,7 +157,6 @@ async function networkFirstWithFallback(request) {
     const cached = await caches.match(request);
     if (cached) return cached;
 
-    // Page hors ligne de secours pour le HTML
     if (request.headers.get('accept')?.includes('text/html')) {
       const offlinePage = await caches.match('/index.html');
       return offlinePage || new Response(
@@ -179,7 +168,6 @@ async function networkFirstWithFallback(request) {
   }
 }
 
-/** Cache First avec expiration (pour les images) */
 async function cacheFirstWithExpiry(request, cacheName, maxAgeSeconds) {
   const cache  = await caches.open(cacheName);
   const cached = await cache.match(request);
@@ -188,14 +176,13 @@ async function cacheFirstWithExpiry(request, cacheName, maxAgeSeconds) {
     const cachedDate = cached.headers.get('sw-cached-at');
     if (cachedDate) {
       const age = (Date.now() - parseInt(cachedDate)) / 1000;
-      if (age < maxAgeSeconds) return cached; // Encore frais
+      if (age < maxAgeSeconds) return cached;
     }
   }
 
   try {
     const response = await fetch(request);
     if (response.ok) {
-      // Ajoute un header personnalisé avec la date de mise en cache
       const headers = new Headers(response.headers);
       headers.set('sw-cached-at', Date.now().toString());
       const cachedResponse = new Response(await response.blob(), {
@@ -263,7 +250,7 @@ self.addEventListener('push', (event) => {
     badge:                      '/icon-192.png',
     image:   payload.image,
     vibrate: [100, 50, 100],
-    tag:     payload.tag     || 'cbtechno-update',   // Remplace la notif précédente
+    tag:     payload.tag     || 'cbtechno-update',
     renotify: false,
     data: {
       url:           payload.url || '/',
@@ -294,7 +281,6 @@ self.addEventListener('notificationclick', (event) => {
   event.waitUntil(
     self.clients.matchAll({ type: 'window', includeUncontrolled: true })
       .then((clients) => {
-        // Si un onglet est déjà ouvert, le mettre au premier plan
         const existing = clients.find(c => c.url.includes(self.location.origin));
         if (existing) {
           existing.focus();
@@ -308,15 +294,17 @@ self.addEventListener('notificationclick', (event) => {
 
 // ─── MESSAGES DEPUIS LA PAGE ──────────────────────────────────
 self.addEventListener('message', (event) => {
-  // La page peut demander au SW de se mettre à jour immédiatement
   if (event.data?.type === 'SKIP_WAITING') {
     self.skipWaiting();
   }
 
-  // La page peut demander d'invalider le cache d'une image
   if (event.data?.type === 'INVALIDATE_IMAGE') {
     caches.open(CACHE_IMAGES).then(cache => cache.delete(event.data.url));
   }
 });
 
 console.log('[SW] CB@Techno Service Worker v3 chargé ✅');
+
+self.addEventListener('controllerchange', () => {
+  window.location.reload();
+});
