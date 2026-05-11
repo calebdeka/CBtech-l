@@ -7,38 +7,40 @@
 // ─── 1. CONFIGURATION FIREBASE ───────────────────────────────
 // ⚠️  Remplacez ces valeurs par celles de VOTRE projet Firebase
 //     Console Firebase → Paramètres → Vos applications → SDK
-const FIREBASE_CONFIG = {
-  apiKey:            "AIzaSyAtTog9eMM3acErQeTf6K2gGrMcY3HBSnE",
-  authDomain:        "cbtech-database.firebaseapp.com",
-  projectId:         "cbtech-database",
-  storageBucket:     "cbtech-database.firebasestorage.app",
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
+
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: "AIzaSyAtTog9eMM3acErQeTf6K2gGrMcY3HBSnE",
+  authDomain: "cbtech-database.firebaseapp.com",
+  projectId: "cbtech-database",
+  storageBucket: "cbtech-database.firebasestorage.app",
   messagingSenderId: "433087349101",
-  appId:             "1:433087349101:web:ee238334fd40ba2ab71a64"
+  appId: "1:433087349101:web:ee238334fd40ba2ab71a64",
+  measurementId: "G-ZCTZZTNYED"
 };
 
-// ─── 2. IMPORT DES SDK FIREBASE (à coller dans <head> du HTML) ─
-/*
-  <script type="module">
-    // Collez ce bloc dans votre index.html juste avant </body>
-    import { initializeApp }              from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-    import { getFirestore, ... }          from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
-    import { getStorage, ... }            from "https://www.gstatic.com/firebasejs/10.12.0/firebase-storage.js";
-  </script>
-*/
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
 
 // ─── 3. INITIALISATION ───────────────────────────────────────
-let db, storage, app;
+let db, storage;
 
 async function initFirebase() {
   try {
-    const { initializeApp }                        = await import("https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js");
     const { getFirestore, collection, addDoc,
             onSnapshot, deleteDoc, doc,
             serverTimestamp, query, orderBy }      = await import("https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js");
     const { getStorage, ref, uploadBytesResumable,
             getDownloadURL, deleteObject }         = await import("https://www.gstatic.com/firebasejs/10.12.0/firebase-storage.js");
 
-    app     = initializeApp(FIREBASE_CONFIG);
     db      = getFirestore(app);
     storage = getStorage(app);
 
