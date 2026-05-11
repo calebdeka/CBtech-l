@@ -8,12 +8,12 @@
 // ⚠️  Remplacez ces valeurs par celles de VOTRE projet Firebase
 //     Console Firebase → Paramètres → Vos applications → SDK
 const FIREBASE_CONFIG = {
-  apiKey:            "VOTRE_API_KEY",
-  authDomain:        "VOTRE_PROJECT.firebaseapp.com",
-  projectId:         "VOTRE_PROJECT_ID",
-  storageBucket:     "VOTRE_PROJECT.appspot.com",
-  messagingSenderId: "VOTRE_SENDER_ID",
-  appId:             "VOTRE_APP_ID"
+  apiKey:            "AIzaSyAtTog9eMM3acErQeTf6K2gGrMcY3HBSnE",
+  authDomain:        "cbtech-database.firebaseapp.com",
+  projectId:         "cbtech-database",
+  storageBucket:     "cbtech-database.firebasestorage.app",
+  messagingSenderId: "433087349101",
+  appId:             "1:433087349101:web:ee238334fd40ba2ab71a64"
 };
 
 // ─── 2. IMPORT DES SDK FIREBASE (à coller dans <head> du HTML) ─
