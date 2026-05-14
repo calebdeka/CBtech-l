@@ -9,8 +9,11 @@
 //     Console Firebase → Paramètres → Vos applications → SDK
 // Import the functions you need from the SDKs you need
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
-import { getFirestore } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
-import { getStorage } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-storage.js';
+import { getFirestore, collection, addDoc, onSnapshot, deleteDoc, doc, serverTimestamp, query, orderBy } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
+
+// Déclarations globales pour éviter "is not defined" dans les fonctions appelées globalement
+let collection, addDoc, serverTimestamp;
+import { getStorage, ref, uploadBytesResumable, getDownloadURL, deleteObject } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-storage.js';
 
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -46,6 +49,13 @@ async function initFirebase() {
     db      = getFirestore(app);
     storage = getStorage(app);
 
+    // Assignation directe pour éviter l'erreur "is not defined" dans les fonctions appelées globalement
+    // Ces variables sont maintenant globales grâce aux importations en haut du fichier.
+    // Il n'est plus nécessaire de les exposer via window._fb ou de les réassigner ici.
+    collection      = window.collection = collection;
+    addDoc          = window.addDoc = addDoc;
+    serverTimestamp = window.serverTimestamp = serverTimestamp;
+
     // Expose les fonctions Firestore & Storage globalement
     window._fb = {
       db, storage,
@@ -53,6 +63,18 @@ async function initFirebase() {
       doc, serverTimestamp, query, orderBy,
       ref, uploadBytesResumable, getDownloadURL, deleteObject
     };
+
+    // Les assignations individuelles pour window.* sont redondantes si elles sont déjà dans window._fb
+    // et que les fonctions sont utilisées via window._fb.*
+    window.onSnapshot = onSnapshot;
+    window.deleteDoc = deleteDoc;
+    window.doc = doc;
+    window.query = query;
+    window.orderBy = orderBy;
+    window.ref = ref;
+    window.uploadBytesResumable = uploadBytesResumable;
+    window.getDownloadURL = getDownloadURL;
+    window.deleteObject = deleteObject;
 
     setSyncStatus("synced", "Connecté");
     console.log("✅ Firebase initialisé");
@@ -104,9 +126,7 @@ function startRealtimeListeners() {
  */
 async function uploadAndSave(file, meta, onProgress) {
   if (!window._fb) throw new Error("Firebase non initialisé");
-  const { storage, db, ref, uploadBytesResumable,
-          getDownloadURL, collection, addDoc, serverTimestamp } = window._fb;
-
+  const { storage, db, ref, uploadBytesResumable, getDownloadURL } = window._fb;
   setSyncStatus("syncing", "Upload en cours…");
 
   // 5a. Upload du fichier vers Firebase Storage
