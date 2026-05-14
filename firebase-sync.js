@@ -8,8 +8,9 @@
 // ⚠️  Remplacez ces valeurs par celles de VOTRE projet Firebase
 //     Console Firebase → Paramètres → Vos applications → SDK
 // Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+import { getFirestore } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
+import { getStorage } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-storage.js';
 
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -28,18 +29,19 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
+// const analytics = getAnalytics(app); // Google Analytics est omis pour cet exemple
 
 // ─── 3. INITIALISATION ───────────────────────────────────────
 let db, storage;
 
 async function initFirebase() {
   try {
-    const { getFirestore, collection, addDoc,
-            onSnapshot, deleteDoc, doc,
-            serverTimestamp, query, orderBy }      = await import("https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js");
-    const { getStorage, ref, uploadBytesResumable,
-            getDownloadURL, deleteObject }         = await import("https://www.gstatic.com/firebasejs/10.12.0/firebase-storage.js");
+    // Pas besoin d'importer ici car ils sont déjà importés globalement
+    // const { getFirestore, collection, addDoc,
+    //         onSnapshot, deleteDoc, doc,
+    //         serverTimestamp, query, orderBy }      = await import("https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js");
+    // const { getStorage, ref, uploadBytesResumable,
+    //         getDownloadURL, deleteObject }         = await import("https://www.gstatic.com/firebasejs/10.12.0/firebase-storage.js");
 
     db      = getFirestore(app);
     storage = getStorage(app);
